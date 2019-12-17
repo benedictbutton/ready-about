@@ -23,18 +23,22 @@ const useStyles = makeStyles(theme => ({
   main: {
     flex: 1,
     background: '#9fa8a3',
-    width: '85%',
-    margin: theme.spacing(10, 0),
+    maxWidth: '85%',
+    margin: theme.spacing(5, 0),
     paddingTop: theme.spacing(3),
   },
   root: {
     flex: 1,
+    width: '100%',
     // padding: theme.spacing(3, 2)
   },
   paper: {},
   container: {
     flex: 1,
     // flexWrap: "wrap"
+  },
+  multi: {
+    display: 'flexWrap',
   },
 }));
 
@@ -99,7 +103,14 @@ const Todos = props => {
             inputProps={{ 'aria-labelledby': labelId }}
           />
         </ListItemIcon>
-        <ListItemText id={labelId} primary={el.item} />
+        <ListItemText
+          primaryTypographyProps={{
+            wrap: 'nowrap',
+            overflow: 'hidden',
+          }}
+          id={labelId}
+          primary={el.item}
+        />
       </ListItem>
     );
   });
@@ -125,8 +136,10 @@ const Todos = props => {
   //
   //
   // debugger;
+  //
+
   return (
-    <div className={classes.root}>
+    <div className={classes.root} align="center">
       <Grid
         container
         className={classes.main}
@@ -134,7 +147,7 @@ const Todos = props => {
         alignItems="center"
       >
         <Grid item xs={11}>
-          <Paper className={classes.root}>
+          <Paper>
             <MyToolbar
               numSelected={selected.length}
               numOfTodos={todos.length}
@@ -146,7 +159,7 @@ const Todos = props => {
             <List dense={false}>{todosList}</List>
           </Paper>
         </Grid>
-        <Grid item xs={11} className={classes.container}>
+        <Grid item xs={11}>
           <AddTodo />
         </Grid>
       </Grid>

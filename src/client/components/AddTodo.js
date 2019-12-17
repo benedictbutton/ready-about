@@ -8,10 +8,37 @@ import TextField from '@material-ui/core/TextField';
 import useForm from './CustomHooks';
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
   root: { flex: 1 },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#191970',
+        borderWidth: 'medium',
+      },
+
+      '&:hover fieldset': {
+        borderColor: '#191970',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#191970',
+      },
+    },
+    '& .MuiOutlinedInput-notchedOutline legend': {
+      float: 'left',
+
+      // paddingLeft: 0,
+      // marginLeft: 0,
+    },
+  },
+  button: {
+    backgroundColor: '#191970',
+    color: 'white',
   },
 }));
 
@@ -27,22 +54,23 @@ const AddTodo = () => {
   };
 
   return (
-    <form onSubmit={postTodo}>
+    <form onSubmit={postTodo} className={classes.container}>
       <Grid
         container
+        className={classes.root}
         spacing={3}
         justify="space-around"
         alignItems="center"
       >
-        <Grid item xs={9}>
+        <Grid item xs={10}>
           <TextField
             id="outlined-basic"
+            InputLabelProps={{ width: '45px' }}
             className={classes.textField}
-            style={{ margin: 8 }}
             fullWidth
             autoComplete="off"
             label="Todo"
-            placeholder="Enter todo..."
+            placeholder="Enter Todo..."
             margin="normal"
             variant="outlined"
             name="item"
@@ -55,7 +83,7 @@ const AddTodo = () => {
             type="submit"
             variant="contained"
             size="large"
-            color="primary"
+            className={classes.button}
           >
             Enter
           </Button>

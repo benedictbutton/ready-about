@@ -14,7 +14,7 @@ const INITIAL_STATE = {
   successful: false,
   id: null,
   username: '',
-  phoneNumber: null,
+  phoneNumber: 'unlisted',
   avatar: '',
   error: '',
 };
@@ -28,9 +28,9 @@ const applySignUpSuccess = (state, action) => ({
   ...state,
   requesting: false,
   successful: true,
-  id: action.responseJson.user.id,
+  id: action.responseJson.user._id,
   username: action.responseJson.user.username,
-  phoneNumber: action.responseJson.user.phoneNumber,
+  phoneNumber: action.responseJson.user.phoneNumber || 'unlisted',
 });
 
 const applySignInRequest = (state, action) => ({

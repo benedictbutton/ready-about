@@ -69,6 +69,8 @@ const useStyles = makeStyles(theme => ({
   type: {
     color: 'white',
   },
+  profileType: { fontSize: 20, color: 'white' },
+  date: { margin: theme.spacing(3, 0, 0, 3) },
 }));
 
 const MyPaper = props => {
@@ -92,10 +94,12 @@ const Profile = props => {
   );
 
   let newNumber = '';
-  for (let i = 0; i < phoneNumber.length; i++) {
-    if (i === 3 || i === 6) newNumber += '-';
+  if (phoneNumber !== 'unlisted') {
+    for (let i = 0; i < phoneNumber.length; i++) {
+      if (i === 3 || i === 6) newNumber += '-';
 
-    newNumber += phoneNumber[i];
+      newNumber += phoneNumber[i];
+    }
   }
 
   const updatePhoneNumber = () => setUpdate(true);
@@ -206,9 +210,38 @@ const Profile = props => {
 
   const keepOpen = !!(profile || picture);
 
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const dt = new Date();
+  const month = months[dt.getMonth()];
+  const day = dt.getDate();
+
+  const date = `${month} ${day}`;
+
   return (
     <div className={classes.root}>
       <Grid container justify="flex-end">
+        <Grid item xs={9}>
+          <Typography
+            variant="h1"
+            className={classes.date}
+            align="left"
+          >
+            {date}
+          </Typography>
+        </Grid>
         <Grid item xs={3}>
           <MyPaper
             keepOpen={!!(profile || picture)}
@@ -224,7 +257,10 @@ const Profile = props => {
               alignItems="center"
             >
               <Grid item xs={5} align="right">
-                <Typography variant="body1" className={classes.type}>
+                <Typography
+                  variant="body1"
+                  className={classes.profileType}
+                >
                   Profile
                 </Typography>
               </Grid>
@@ -237,7 +273,7 @@ const Profile = props => {
                   />
                 ) : (
                   <Avatar className={classes.bigAvatar}>
-                    {username[0]}
+                    {username[0].toUpperCase()}
                   </Avatar>
                 )}
               </Grid>
@@ -348,7 +384,7 @@ const Profile = props => {
                       className={classes.type}
                       variant="body1"
                     >
-                      {newNumber}
+                      {newNumber || 'unlisted'}
                     </Typography>
                   </Grid>
                   <Grid item xs={2}>
