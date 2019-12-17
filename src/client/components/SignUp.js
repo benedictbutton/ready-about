@@ -93,7 +93,7 @@ const SignUp = props => {
               <TextField
                 id="password"
                 label="Password"
-                type="text"
+                type="password"
                 margin="normal"
                 fullWidth
                 onChange={handleChange}
