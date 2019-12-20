@@ -21,11 +21,15 @@ exports.postAppointment = async function(req, res) {
       time: moment(selectedDate).utcOffset(5),
     });
     await appointment.save();
-    const todo = await Todo.findById(selected[0]);
-    todo.appointment = appointment;
-    await todo.save().then(function() {
-      res.status(201).json({ message: 'Appointment made.' });
-    });
+    const todo = await Todo.findOneAndUpdate(
+      { _id: selected[0] },
+      { appointment: apointment },
+      { upsert: true, new: true },
+    );
+    res.status(201).json({ todo });
+    // await todo.save().then(function() {
+    //   res.status(201).json({ todo });
+    // });
   } catch (err) {
     console.log(err);
     res.status(err.statusCode || 502).json(err.error || err);

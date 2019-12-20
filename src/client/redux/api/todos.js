@@ -1,3 +1,6 @@
+import { normalize } from 'normalizr';
+import { todoSchema } from '../schemas';
+
 async function fetchTodos() {
   try {
     const response = await fetch(`/api/todos`, {
@@ -8,8 +11,9 @@ async function fetchTodos() {
         Authorization: `Bearer ${sessionStorage.jwt}`,
       },
     });
+    if (!response.ok) throw response.status;
     const responseJson = await response.json();
-    if (!response.ok) throw responseJson;
+    // const data = normalize(responseJson.todos, [todoSchema]);
     return { responseJson };
   } catch (error) {
     return { error };
@@ -27,8 +31,33 @@ async function postTodo(payload) {
       },
       body: JSON.stringify(payload.values),
     });
+    if (!response.ok) throw response.status;
     const responseJson = await response.json();
-    if (!response.ok) throw responseJson;
+    return { responseJson };
+  } catch (error) {
+    return { error };
+  }
+}
+
+async function editTodo(payload) {
+  try {
+    const response = await fetch(`/api/todos`, {
+      credentials: 'same-origin',
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.jwt}`,
+      },
+      body: JSON.stringify({
+        todo: {
+          id: payload.selected,
+          editProp: payload.editProp,
+          edit: payload.values,
+        },
+      }),
+    });
+    if (!response.ok) throw response.status;
+    const responseJson = await response.json();
     return { responseJson };
   } catch (error) {
     return { error };
@@ -73,4 +102,10 @@ async function deleteTodos(payload) {
   }
 }
 
-export { fetchTodos, postTodo, postReminderTodo, deleteTodos };
+export {
+  fetchTodos,
+  postTodo,
+  editTodo,
+  postReminderTodo,
+  deleteTodos,
+};

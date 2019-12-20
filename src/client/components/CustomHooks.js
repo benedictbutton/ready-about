@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const useForm = callback => {
+  const [open, setOpen] = useState(false);
   const [values, setValues] = useState({});
   const [selected, setSelected] = useState([]);
   const [keyPressed, setKeyPressed] = useState(false);
@@ -84,14 +85,20 @@ const useForm = callback => {
   const handleResetSelected = () => setSelected([]);
 
   const handleKeyUp = event => {
-    if (event.key === 'Shift' && keyPressed) setKeyPressed(false);
+    if (event.key === 'Shift' && keyPressed) console.log(keyPressed);
+    setKeyPressed(false);
   };
 
   const handleKeyDown = event => {
-    if (event.key === 'Shift' && !keyPressed) setKeyPressed(true);
+    if (event.key === 'Shift' && !keyPressed) {
+      setKeyPressed(true);
+      console.log(keyPressed);
+    }
   };
 
   return {
+    open,
+    setOpen,
     values,
     selected,
     handleChange,

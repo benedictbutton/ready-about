@@ -4,6 +4,7 @@ const todosController = require('../controllers/todosController');
 
 router.get('/', auth.required, todosController.getTodos);
 router.post('/', auth.required, todosController.postTodo);
+router.put('/', auth.required, todosController.editTodo);
 router.delete('/', auth.required, todosController.deleteTodos);
 
 module.exports = router;

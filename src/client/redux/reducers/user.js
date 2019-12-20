@@ -3,10 +3,11 @@ import {
   SIGNUP_SUCCESS,
   SIGNIN_REQUESTING,
   SIGNIN_SUCCESS,
-  CLIENT_ERROR,
+  USER_EDIT_REQUESTING,
+  USER_EDIT_SUCCESS,
   USER_ADD_AVATAR,
   USER_REMOVE_AVATAR,
-  USER_UPDATE_PHONENUMBER,
+  CLIENT_ERROR,
 } from '../constants';
 
 const INITIAL_STATE = {
@@ -44,24 +45,34 @@ const applySignInSuccess = (state, action) => ({
   successful: true,
   id: action.responseJson.user._id,
   username: action.responseJson.user.username,
-  phoneNumber: action.responseJson.user.phoneNumber,
-  avatar: action.responseJson.user.avatar,
+  phoneNumber: action.responseJson.user.phoneNumber || 'unlisted',
+  avatar: action.responseJson.user.avatar || '',
 });
 
-const applyClientError = (state, action) => ({
+const applyUserEditRequesting = (state, action) => ({
   ...state,
-  requesting: false,
-  error: action.error.errors,
+  requesting: true,
 });
+
+const applyUserEditSuccess = (state, action) => {
+  const { prop } = action.responseJson;
+  return {
+    ...state,
+    requesting: false,
+    successful: true,
+    [prop.editField]: prop.edit,
+  };
+};
 
 const applyUserAddAvatar = (state, action) => ({
   ...state,
   avatar: action.image,
 });
 
-const applyUserUpdatePhoneNumber = (state, action) => ({
+const applyClientError = (state, action) => ({
   ...state,
-  phoneNumber: action.responseJson.user.phoneNumber,
+  requesting: false,
+  error: action.error.message,
 });
 
 function userReducer(state = INITIAL_STATE, action) {
@@ -74,12 +85,14 @@ function userReducer(state = INITIAL_STATE, action) {
       return applySignInRequest(state, action);
     case SIGNIN_SUCCESS:
       return applySignInSuccess(state, action);
-    case CLIENT_ERROR:
-      return applyClientError(state, action);
+    case USER_EDIT_REQUESTING:
+      return applyUserEditRequesting(state, action);
+    case USER_EDIT_SUCCESS:
+      return applyUserEditSuccess(state, action);
     case USER_ADD_AVATAR:
       return applyUserAddAvatar(state, action);
-    case USER_UPDATE_PHONENUMBER:
-      return applyUserUpdatePhoneNumber(state, action);
+    case CLIENT_ERROR:
+      return applyClientError(state, action);
 
     default:
       return state;

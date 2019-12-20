@@ -7,7 +7,7 @@ exports.getTodos = async function(req, res) {
   try {
     const todos = await Todo.find({ id: req.payload.id });
     return res.json({ todos });
-  } catch (e) {
+  } catch (err) {
     res.status(err.statusCode || 502).json(err.error || err);
   }
 };
@@ -20,6 +20,21 @@ exports.postTodo = async function(req, res) {
       completed: false,
     });
     await todo.save();
+    res.status(201).json({ todo });
+  } catch (err) {
+    res.status(err.statusCode || 502).json(err.error || err);
+  }
+};
+
+exports.editTodo = async function(req, res) {
+  try {
+    const todo = await Todo.findOneAndUpdate(
+      {
+        _id: req.body.todo.id,
+      },
+      { [req.body.todo.editProp]: req.body.todo.edit },
+      { new: true },
+    );
     res.status(201).json({ todo });
   } catch (err) {
     res.status(err.statusCode || 502).json(err.error || err);

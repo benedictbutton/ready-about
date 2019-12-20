@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // material-ui
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -15,17 +15,21 @@ const useStyles = makeStyles(theme => ({
 
 const Inside = props => {
   const classes = useStyles();
-  const user = useSelector(state => state.user);
-  const handleLogOut = () => {
-    localStorage.removeItem('state');
-    localStorage.clear();
-    props.history.push('/');
-    window.location.reload(true);
-  };
+
+  const { successful, error } = useSelector(state => state.user);
+  const todosError = useSelector(state => state.todos.error);
+  const dispatch = useDispatch();
+
+  if (!successful || todosError === 401 || error === 401)
+    handleLogOut();
+
+  const handleLogOut = useCallback(() => {
+    dispatch({ type: 'SIGN_OUT' }), [dispatch];
+  });
 
   return (
     <>
-      {!user.successful ? (
+      {!successful ? (
         <Redirect to="/" />
       ) : (
         <Profile handleLogOut={handleLogOut} />

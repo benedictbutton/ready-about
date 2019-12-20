@@ -1,6 +1,11 @@
-import { call, put } from "redux-saga/effects";
-import { SIGNUP_SUCCESS, SIGNIN_SUCCESS, CLIENT_ERROR } from "../constants";
-import { postSignUp, postSignIn } from "../api/client";
+import { call, put } from 'redux-saga/effects';
+import {
+  SIGNUP_SUCCESS,
+  SIGNIN_SUCCESS,
+  USER_EDIT_SUCCESS,
+  CLIENT_ERROR,
+} from '../constants';
+import { postSignUp, postSignIn, editUser } from '../api/user';
 
 function* handlePostSignUp(values) {
   const { payload } = values;
@@ -16,4 +21,11 @@ function* handlePostSignIn(values) {
   else yield put({ type: CLIENT_ERROR, error });
 }
 
-export { handlePostSignUp, handlePostSignIn };
+function* handleEditUser(payload) {
+  const { responseJson, error } = yield call(editUser, payload);
+  if (responseJson)
+    yield put({ type: USER_EDIT_SUCCESS, responseJson });
+  else yield put({ type: CLIENT_ERROR, error });
+}
+
+export { handlePostSignUp, handlePostSignIn, handleEditUser };
