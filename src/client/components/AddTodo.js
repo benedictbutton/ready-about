@@ -10,16 +10,18 @@ import useForm from './CustomHooks';
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
   },
   root: { flex: 1 },
   textField: {
+    background: 'white',
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
         borderColor: '#191970',
         borderWidth: 'medium',
+        borderRadius: 0,
       },
 
       '&:hover fieldset': {
@@ -30,8 +32,7 @@ const useStyles = makeStyles(theme => ({
       },
     },
     '& .MuiOutlinedInput-notchedOutline legend': {
-      float: 'left',
-
+      // float: 'left',
       // paddingLeft: 0,
       // marginLeft: 0,
     },
@@ -44,9 +45,10 @@ const useStyles = makeStyles(theme => ({
 
 const AddTodo = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
+
   const { values, handleChange, handleResetValues } = useForm();
 
+  const dispatch = useDispatch();
   const postTodo = event => {
     event.preventDefault();
     dispatch({ type: 'TODO_POST_REQUESTING', values });
@@ -65,11 +67,9 @@ const AddTodo = () => {
         <Grid item xs={10}>
           <TextField
             id="outlined-basic"
-            InputLabelProps={{ width: '45px' }}
             className={classes.textField}
             fullWidth
             autoComplete="off"
-            label="Todo"
             placeholder="Enter Todo..."
             margin="normal"
             variant="outlined"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 // material-ui
 import clsx from 'clsx';
 import {
@@ -9,11 +9,14 @@ import {
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
+import EditTodo from './EditTodo';
+import EditProfile from './EditProfile';
 import Reminder from './Reminder';
 
 const useStyles = makeStyles(theme => ({
@@ -52,9 +55,14 @@ const MyToolbar = props => {
   const classes = useStyles(alter);
 
   const [open, setOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleEditClose = useCallback(() => {
+    setEditOpen(false), [setEditOpen];
+  });
 
   return (
     <Toolbar
@@ -68,6 +76,12 @@ const MyToolbar = props => {
         checked={numSelected === numOfTodos}
         onChange={onSelectAllClick}
         inputProps={{ 'aria-label': 'select all todos' }}
+      />
+      <EditTodo
+        selected={selected}
+        handleResetSelected={handleResetSelected}
+        editOpen={editOpen}
+        handleEditClose={handleEditClose}
       />
       {numSelected > 0 && !open ? (
         <Typography className={classes.title} variant="subtitle1">
@@ -92,11 +106,21 @@ const MyToolbar = props => {
         </Typography>
       )}
       {numSelected === 1 && (
-        <Tooltip title="Reminder">
-          <IconButton aria-label="reminder" onClick={handleOpen}>
-            <AccessAlarmIcon className={classes.checkbox} />
-          </IconButton>
-        </Tooltip>
+        <>
+          <Tooltip title="Reminder">
+            <IconButton aria-label="reminder" onClick={handleOpen}>
+              <AccessAlarmIcon className={classes.checkbox} />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Edit">
+            <IconButton
+              aria-label="reminder"
+              onClick={() => setEditOpen(true)}
+            >
+              <EditIcon className={classes.checkbox} />
+            </IconButton>
+          </Tooltip>
+        </>
       )}
       {numSelected > 0 ? (
         <Tooltip title="Delete">

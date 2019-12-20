@@ -1,0 +1,9 @@
+addition of current info
+editProp
+maxWidth
+title
+rows
+
+props
+hooks (ref, state, style, selector)
+handlers

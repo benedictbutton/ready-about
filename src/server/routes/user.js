@@ -14,10 +14,6 @@ router.put(
   upload.single('avatar'),
   usersController.imageUpload,
 );
-router.put(
-  '/phoneNumber',
-  auth.required,
-  usersController.addPhoneNumber,
-);
+router.put('/', auth.required, usersController.editUser);
 
 module.exports = router;

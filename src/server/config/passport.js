@@ -1,7 +1,7 @@
 // const mongoose = require("mongoose");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const User = require("../models/user");
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const User = require('../models/user');
 
 // expose this function to our app using module.exports
 module.exports = passport => {
@@ -18,29 +18,35 @@ module.exports = passport => {
   // });
 
   passport.use(
-    "local",
+    'local',
     new LocalStrategy(
       {
         // by default, local strategy uses username and password, we will override with email
-        usernameField: "username",
-        passwordField: "password"
+        usernameField: 'username',
+        passwordField: 'password',
         // allows us to pass back the entire request to the callback
         // passReqToCallback: true
       },
       function(username, password, done) {
-        User.findOne({ username: username }, function(err, user) {
+        User.findOne({ username }, function(err, user) {
           if (err) {
             return done(err);
           }
           if (!user) {
-            return done(null, false, { message: "Incorrect username." });
+            return done(null, false, {
+              message: 'Incorrect username and/or password.',
+              status: 401,
+            });
           }
           if (!user.validatePassword(password)) {
-            return done(null, false, { message: "Incorrect password." });
+            return done(null, false, {
+              message: 'Incorrect username and/or password.',
+              status: 401,
+            });
           }
           return done(null, user);
         });
-      }
-    )
+      },
+    ),
   );
 };

@@ -1,13 +1,19 @@
-const mongoose = require("mongoose");
-const User = require("../models/user");
+const mongoose = require('mongoose');
+const User = require('../models/user');
+
+const formatPhoneNumber = number => {
+  let newNumber = number.split('').filter(char => /\d/.test(char));
+  newNumber = newNumber.join('');
+  return newNumber;
+};
 
 exports.imageUpload = async (req, res) => {
   try {
     const {
-      payload: { id }
+      payload: { id },
     } = req;
     const user = await User.findById(id);
-    let image = req.file.key;
+    const image = req.file.key;
     user.avatar = image;
     await user.save();
     return res.json({ avatar: image });
@@ -16,17 +22,19 @@ exports.imageUpload = async (req, res) => {
   }
 };
 
-exports.addPhoneNumber = async (req, res) => {
+exports.editUser = async (req, res) => {
   try {
-    const { username } = req.payload;
-    const { phoneNumber } = req.body;
+    let { edit, editProp } = req.body.user;
+    if (editProp === 'phoneNumber') edit = formatPhoneNumber(edit);
     const user = await User.findOneAndUpdate(
-      { username: username },
-      { phoneNumber: phoneNumber },
-      { upsert: true, new: true }
+      { username: req.payload.username },
+      { [editProp]: edit },
+      { upsert: true, new: true },
     );
-    console.log(user);
-    return res.json({ user });
+    return res.json({
+      user,
+      prop: { editField: editProp, edit },
+    });
   } catch (err) {
     res.status(err.statusCode || 502).json(err.error || err);
   }

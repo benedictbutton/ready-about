@@ -29,36 +29,6 @@ const Reminder = props => {
     handleResetSelected();
   };
 
-  // useEffect(() => {
-  //   if (!isLoading) return;
-  //   let postData = async () => {
-  //     try {
-  //       let response = await fetch(`/api/appointments`, {
-  //         credentials: "same-origin",
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${sessionStorage.jwt}`
-  //         },
-  //         body: JSON.stringify({
-  //           time: selectedDate,
-  //           name: "ben",
-  //           phoneNumber: "+178180166384",
-  //           timeZone: "America/New_York",
-  //           notification: 10
-  //         })
-  //       });
-  //       let responseJson = await response.json();
-  //       if (!response.ok) throw responseJson;
-  //       return { responseJson };
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //     setIsLoading(false);
-  //   };
-  //   postData();
-  // }, [isLoading]);
-
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <form onSubmit={handleSubmit}>
