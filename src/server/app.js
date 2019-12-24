@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 const isDev = process.env.NODE_ENV || 'development';
 
-const port = process.env.PORT || process[2] || 8080;
+const port = process.env.PORT || process.argv[2] || 8080;
 
 const FileStore = require('session-file-store')(session);
 
