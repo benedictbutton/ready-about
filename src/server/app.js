@@ -91,6 +91,7 @@ if (isDev) {
     }),
   );
 } else {
+  console.log('test');
   app.use(express.static('dist'));
 }
 
