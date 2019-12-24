@@ -20,8 +20,8 @@ const Inside = props => {
   const todosError = useSelector(state => state.todos.error);
   const dispatch = useDispatch();
 
-  if (!successful || todosError === 401 || error === 401)
-    handleLogOut();
+  // if (!successful || todosError === 401 || error === 401)
+  //   handleLogOut();
 
   const handleLogOut = useCallback(() => {
     dispatch({ type: 'SIGN_OUT' }), [dispatch];
