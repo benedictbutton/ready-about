@@ -68,7 +68,7 @@ mongoose.connect(
 mongoose.set('debug', true);
 
 // process requests to api/auth with routes/auth.js file
-app.use('/api', require('./routes/index'));
+app.use('/api', require('./routes/index.js'));
 
 // default route
 // app.get("/*", function(req, res) {
