@@ -1,4 +1,3 @@
-'use strict'
 const mongoose = require('mongoose');
 const express = require('express');
 const morgan = require('morgan');
@@ -95,7 +94,7 @@ if (isDev) {
   app.use(express.static('dist'));
 }
 
-app.get('/*', function(req, res) {
+app.get('/', function(req, res) {
   res.sendFile(
     path.join(__dirname, '../../dist/index.html'),
     function(err) {

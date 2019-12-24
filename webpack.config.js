@@ -31,9 +31,20 @@ module.exports = {
   module: {
     rules: [
       {
+        enforce: 'pre',
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: ['babel-loader', 'eslint-loader'],
+        loader: 'eslint-loader',
+        options: {
+          cache: true,
+          emitWarning: true,
+          configFile: './.eslintrc.json',
+        },
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
       },
       {
         test: /\.(css)$/,
@@ -84,15 +95,3 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
   ],
 };
-
-// {
-//   enforce: 'pre',
-//   test: /\.(js|jsx)$/,
-//   exclude: /node_modules/,
-//   loader: 'eslint-loader',
-//   options: {
-//     cache: true,
-//     emitWarning: true,
-//     configFile: './.eslintrc.json',
-//   },
-// },
