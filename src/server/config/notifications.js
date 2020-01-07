@@ -1,10 +1,10 @@
-const Appointment = require("../models/appointment");
+const Appointment = require('../models/appointment');
 
 const notifications = function() {
   return {
-    run: function() {
+    run() {
       Appointment.sendNotifications();
-    }
+    },
   };
 };
 
