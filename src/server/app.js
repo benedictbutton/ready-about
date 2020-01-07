@@ -38,7 +38,7 @@ app.use(
 );
 
 // Models
-require('./models/user');
+// require('./models/user');
 // require("./config/passport");
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -58,26 +58,10 @@ mongoose.connect(
   },
 );
 
-// configure Mongoose
-// mongoose.connect(
-//   "mongodb+srv://bdaly:4J8U-rGwv5r.jQj@cluster0-vof2w.mongodb.net/test?retryWrites=true&w=majority",
-//   {
-//     useNewUrlParser: true
-//   }
-// );
 mongoose.set('debug', true);
 
 // process requests to api/auth with routes/auth.js file
 app.use('/api', require('./routes/index.js'));
-
-// default route
-// app.get("/*", function(req, res) {
-//   res.sendFile(path.join(__dirname, "../../dist/index.html"), function(err) {
-//     if (err) {
-//       res.status(500).send(err);
-//     }
-//   });
-// });
 
 if (isDev) {
   const webpack = require('webpack');
@@ -95,6 +79,7 @@ if (isDev) {
   app.use(express.static('dist'));
 }
 
+// default route
 app.get('/*', function(req, res) {
   res.sendFile(
     path.join(__dirname, '../../dist/index.html'),
