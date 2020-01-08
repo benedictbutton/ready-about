@@ -4,6 +4,7 @@
   "main": "src/server/app.js",
   "license": "MIT",
   "scripts": {
+    "heroku-prebuild": "yarn add --dev",
     "build": "webpack --mode=production",
     "start": "yarn build && node src/server/app.js",
     "client": "webpack-dev-server --mode=development",
