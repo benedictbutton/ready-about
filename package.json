@@ -4,8 +4,8 @@
   "main": "src/server/app.js",
   "license": "MIT",
   "scripts": {
-    "heroku-prebuild": "webpack --mode=production",
-    "start": "node src/server/app.js",
+    "build": "webpack --mode=production",
+    "start": "yarn build && node src/server/app.js",
     "client": "webpack-dev-server --mode=development",
     "server": "nodemon --inspect src/server/app.js",
     "dev": "concurrently \"yarn server\" \"yarn client\"",

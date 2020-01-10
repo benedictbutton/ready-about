@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
-const isDev = process.env.NODE_ENV || 'development';
+const isDev = NODE_ENV === 'development';
 
 const port = process.env.PORT || process.argv[2] || 8080;
 
