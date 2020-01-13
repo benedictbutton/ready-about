@@ -30,17 +30,17 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          cache: true,
-          emitWarning: true,
-          configFile: './.eslintrc.json',
-        },
-      },
+      // {
+      //   enforce: 'pre',
+      //   test: /\.(js|jsx)$/,
+      //   exclude: /node_modules/,
+      //   loader: 'eslint-loader',
+      //   options: {
+      //     cache: true,
+      //     emitWarning: true,
+      //     configFile: './.eslintrc.json',
+      //   },
+      // },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
