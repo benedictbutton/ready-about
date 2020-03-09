@@ -5,6 +5,7 @@ const webpack = require('webpack');
 // Make sure this plugin is listed first
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const envKeys = require('./src/server/config/dotenv');
 
 module.exports = {
   entry: {
@@ -26,6 +27,8 @@ module.exports = {
     proxy: {
       '/api': 'http://localhost:8080',
     },
+    // instead of 'warning'
+    clientLogLevel: 'silent',
   },
   devtool: 'cheap-module-eval-source-map',
   module: {
@@ -92,6 +95,7 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
+    // new webpack.DefinePlugin(envKeys),
     new webpack.HotModuleReplacementPlugin(),
   ],
 };

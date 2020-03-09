@@ -4,4 +4,4 @@ const todoSchema = new schema.Entity('todos', undefined, {
   idAttribute: '_id',
 });
 
-export { todoSchema };
+export default { todoSchema };

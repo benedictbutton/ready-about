@@ -19,7 +19,7 @@ const INITIAL_STATE = {
   error: '',
 };
 
-const doApplyTodosIndexRequesting = (state, action) => ({
+const doApplyTodosIndexRequesting = state => ({
   ...state,
   requesting: true,
 });
@@ -31,7 +31,7 @@ const doApplyTodosIndexSuccess = (state, action) => ({
   todos: action.responseJson.todos,
 });
 
-const doApplyTodoPostRequesting = (state, action) => ({
+const doApplyTodoPostRequesting = state => ({
   ...state,
   requesting: true,
 });
@@ -43,7 +43,7 @@ const doApplyTodoPostSuccess = (state, action) => ({
   todos: [...state.todos, action.responseJson.todo],
 });
 
-const doApplyTodoEditRequesting = (state, action) => ({
+const doApplyTodoEditRequesting = state => ({
   ...state,
   requesting: true,
 });
@@ -63,13 +63,12 @@ const doApplyTodoEditSuccess = (state, action) => {
   };
 };
 
-const doApplyTodoReminderPostRequesting = (state, action) => ({
+const doApplyTodoReminderPostRequesting = state => ({
   ...state,
   requesting: true,
 });
 
 const doApplyTodoReminderPostSuccess = (state, action) => {
-  debugger;
   // const newTodos = state.todos.map(todo => {
   //   if (todo.id === action.responseJson.id)
   //     todo[appointment] = action.responseJson.appoinment;
@@ -82,7 +81,7 @@ const doApplyTodoReminderPostSuccess = (state, action) => {
   };
 };
 
-const doApplyTodosDeleteRequesting = (state, action) => ({
+const doApplyTodosDeleteRequesting = state => ({
   ...state,
   requesting: true,
 });
@@ -109,23 +108,23 @@ const doApplyTodosError = (state, action) => ({
 const todosReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TODOS_INDEX_REQUESTING:
-      return doApplyTodosIndexRequesting(state, action);
+      return doApplyTodosIndexRequesting(state);
     case TODOS_INDEX_SUCCESS:
       return doApplyTodosIndexSuccess(state, action);
     case TODO_POST_REQUESTING:
-      return doApplyTodoPostRequesting(state, action);
+      return doApplyTodoPostRequesting(state);
     case TODO_POST_SUCCESS:
       return doApplyTodoPostSuccess(state, action);
     case TODO_EDIT_REQUESTING:
-      return doApplyTodoEditRequesting(state, action);
+      return doApplyTodoEditRequesting(state);
     case TODO_EDIT_SUCCESS:
       return doApplyTodoEditSuccess(state, action);
     case TODO_REMINDER_POST_REQUESTING:
-      return doApplyTodoReminderPostRequesting(state, action);
+      return doApplyTodoReminderPostRequesting(state);
     case TODO_REMINDER_POST_SUCCESS:
       return doApplyTodoReminderPostSuccess(state, action);
     case TODOS_DELETE_REQUESTING:
-      return doApplyTodosDeleteRequesting(state, action);
+      return doApplyTodosDeleteRequesting(state);
     case TODOS_DELETE_SUCCESS:
       return doApplyTodosDeleteSuccess(state, action);
     case TODOS_ERROR:
