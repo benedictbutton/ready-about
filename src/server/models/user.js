@@ -10,6 +10,21 @@ const UserSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 20,
   },
+  todos: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Todo',
+  },
+  words: {
+    history: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Word' }],
+    bookmarked: [
+      { type: mongoose.Schema.Types.ObjectId, ref: 'Word' },
+    ],
+  },
+  appointment: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Appointment',
+  },
+  created: { type: Date, default: Date.now },
   phoneNumber: String,
   hash: String,
   salt: String,
@@ -60,5 +75,6 @@ UserSchema.methods.generateJWT = function() {
   );
 };
 
-module.exports = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+module.exports = User;
 // module.exports = mongoose.model('Email', emailSchema)

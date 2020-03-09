@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const useForm = callback => {
-  const [open, setOpen] = useState(false);
   const [values, setValues] = useState({});
   const [selected, setSelected] = useState([]);
   const [keyPressed, setKeyPressed] = useState(false);
@@ -97,8 +96,6 @@ const useForm = callback => {
   };
 
   return {
-    open,
-    setOpen,
     values,
     selected,
     handleChange,

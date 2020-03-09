@@ -6,7 +6,6 @@ import {
   USER_EDIT_REQUESTING,
   USER_EDIT_SUCCESS,
   USER_ADD_AVATAR,
-  USER_REMOVE_AVATAR,
   CLIENT_ERROR,
 } from '../constants';
 
@@ -20,7 +19,7 @@ const INITIAL_STATE = {
   error: '',
 };
 
-const applySignUpRequest = (state, action) => ({
+const applySignUpRequest = state => ({
   ...state,
   requesting: true,
 });
@@ -34,7 +33,7 @@ const applySignUpSuccess = (state, action) => ({
   phoneNumber: action.responseJson.user.phoneNumber || 'unlisted',
 });
 
-const applySignInRequest = (state, action) => ({
+const applySignInRequest = state => ({
   ...state,
   requesting: true,
 });
@@ -49,7 +48,7 @@ const applySignInSuccess = (state, action) => ({
   avatar: action.responseJson.user.avatar || '',
 });
 
-const applyUserEditRequesting = (state, action) => ({
+const applyUserEditRequesting = state => ({
   ...state,
   requesting: true,
 });
@@ -78,15 +77,15 @@ const applyClientError = (state, action) => ({
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case SIGNUP_REQUESTING:
-      return applySignUpRequest(state, action);
+      return applySignUpRequest(state);
     case SIGNUP_SUCCESS:
       return applySignUpSuccess(state, action);
     case SIGNIN_REQUESTING:
-      return applySignInRequest(state, action);
+      return applySignInRequest(state);
     case SIGNIN_SUCCESS:
       return applySignInSuccess(state, action);
     case USER_EDIT_REQUESTING:
-      return applyUserEditRequesting(state, action);
+      return applyUserEditRequesting(state);
     case USER_EDIT_SUCCESS:
       return applyUserEditSuccess(state, action);
     case USER_ADD_AVATAR:

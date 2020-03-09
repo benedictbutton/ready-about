@@ -82,5 +82,5 @@ AppointmentSchema.statics.sendNotifications = function(callback) {
   }
 };
 
-const Appointment = mongoose.model('appointment', AppointmentSchema);
+const Appointment = mongoose.model('Appointment', AppointmentSchema);
 module.exports = Appointment;
