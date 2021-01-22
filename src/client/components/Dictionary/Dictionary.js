@@ -49,11 +49,13 @@ const ADD_HISTORY = gql`
 
 const Dictionary = () => {
   const classes = useStyles();
+  const [activeLink, setActiveLink] = useState(false);
   const { loading, error, data } = useQuery(GET_HISTORY);
   const [addHistory, { client }] = useMutation(ADD_HISTORY, {
     update: updateHistory,
   });
 
+  // bad practice - essentially a nested hook???
   const searchWord = () => {
     doFetch(url);
     handleResetValues();
@@ -160,15 +162,28 @@ const Dictionary = () => {
       appBar={<MyAppBar />}
       main={definition}
       textField={
-        <Grid container>
+        <Grid container justify="space-around" alignItems="center">
           <Grid item xs={3} className={classes.subMenu}>
-            <SubMenu />
+            <SubMenu
+              activeLink={activeLink}
+              setActiveLink={setActiveLink}
+              topMenuOption="Dictionary"
+              bottomMenuOption="Thesaurus"
+            />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <EntryField
               values={values}
               handleChange={handleChange}
               handleSubmit={handleSubmit}
+            />
+          </Grid>
+          <Grid item xs={3} className={classes.subMenu}>
+            <SubMenu
+              activeLink={activeLink}
+              setActiveLink={setActiveLink}
+              topMenuOption="History"
+              bottomMenuOption="Favorites"
             />
           </Grid>
         </Grid>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import ListIcon from '@material-ui/icons/List';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import CodeIcon from '@material-ui/icons/Code';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles } from '@material-ui/core/styles';
 import Toggle from './Toggle';
@@ -42,6 +43,14 @@ const Menu = ({ menuSwitch, setMenuSwitch, props }) => {
         <Link to="/in/dictionary">
           <IconButton onClick={() => setMenuSwitch(!menuSwitch)}>
             <MenuBookIcon
+              className={classes.icon}
+              style={{ color: 'white' }}
+            />
+          </IconButton>
+        </Link>
+        <Link to="/in/scripts">
+          <IconButton onClick={() => setMenuSwitch(!menuSwitch)}>
+            <CodeIcon
               className={classes.icon}
               style={{ color: 'white' }}
             />
