@@ -5,6 +5,7 @@ import Entryway from './components/Authentication/Entryway';
 import Inside from './components/Authentication/Inside';
 import Outside from './components/Authentication/Outside';
 import Todos from './components/Todos/Todos';
+import Scripts from './components/Scripts/Scripts';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/entryway" component={Entryway} />
         <Route path="/in/todos" component={Todos} />
         <Route path="/in/dictionary" component={Dictionary} />
+        <Route path="/in/scripts" component={Scripts} />
       </Switch>
     </main>
   );

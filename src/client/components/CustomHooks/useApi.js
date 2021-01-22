@@ -22,7 +22,6 @@ const useApi = (apiUrl, header) => {
         setApiData(responseJson);
         console.log(responseJson);
       } catch (error) {
-        debugger;
         setIsError(true);
       }
       setIsLoading(false);

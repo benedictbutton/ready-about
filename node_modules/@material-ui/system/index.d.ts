@@ -35,8 +35,8 @@ type DefaultBreakPoints = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
  * @returns An enhanced stylefunction that considers breakpoints
  */
 export function breakpoints<Props, Breakpoints extends string = DefaultBreakPoints>(
-  styleFunction: StyleFunction<Props>,
-): StyleFunction<Partial<Record<Breakpoints, Props>>>;
+  styleFunction: StyleFunction<Props>
+): StyleFunction<Partial<Record<Breakpoints, Props>> & Props>;
 
 // compose.js
 /**
@@ -55,7 +55,7 @@ export function compose<T extends Array<StyleFunction<any>>>(...args: T): Compos
 
 // css.js
 export function css<Props>(
-  styleFunction: StyleFunction<Props>,
+  styleFunction: StyleFunction<Props>
 ): StyleFunction<Props & { css: Omit<Props, 'theme'> }>;
 
 export const display: SimpleStyleFunction<
@@ -122,6 +122,7 @@ export const maxHeight: SimpleStyleFunction<'maxHeight'>;
 export const minHeight: SimpleStyleFunction<'minHeight'>;
 export const sizeWidth: SimpleStyleFunction<'sizeWidth'>;
 export const sizeHeight: SimpleStyleFunction<'sizeHeight'>;
+export const boxSizing: SimpleStyleFunction<'boxSizing'>;
 export const sizing: SimpleStyleFunction<
   | 'width'
   | 'maxWidth'
@@ -131,6 +132,7 @@ export const sizing: SimpleStyleFunction<
   | 'minHeight'
   | 'sizeWidth'
   | 'sizeHeight'
+  | 'boxSizing'
 >;
 export type SizingProps = PropsFor<typeof sizing>;
 
@@ -178,7 +180,7 @@ export interface StyleOptions<PropKey, Theme extends object> {
   transform?: (cssValue: unknown) => number | string | React.CSSProperties;
 }
 export function style<PropKey extends string, Theme extends object>(
-  options: StyleOptions<PropKey, Theme>,
+  options: StyleOptions<PropKey, Theme>
 ): StyleFunction<{ [K in PropKey]?: unknown } & { theme: Theme }>;
 
 // typography.js

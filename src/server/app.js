@@ -180,4 +180,4 @@ server.applyMiddleware({ app });
 
 app.listen(port, () => console.log('Ready. Running on port', port));
 
-scheduler.start();
+// scheduler.start();
