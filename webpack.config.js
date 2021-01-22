@@ -5,7 +5,6 @@ const webpack = require('webpack');
 // Make sure this plugin is listed first
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
 // const envKeys = require('./src/server/config/dotenv');
 
 module.exports = {
@@ -38,6 +37,17 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
+      },
+      {
+        enforce: 'pre',
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          cache: true,
+          emitWarning: true,
+          configFile: './.eslintrc.json',
+        },
       },
       {
         test: /\.(css)$/,
@@ -90,8 +100,6 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
-
     // new webpack.DefinePlugin(envKeys),
-    new webpack.HotModuleReplacementPlugin(),
   ],
 };
