@@ -83,11 +83,6 @@ module.exports = {
   },
   mode: 'none',
   plugins: [
-    new ESLintPlugin({
-      cache: true,
-      emitWarning: true,
-      configFile: './.eslintrc.json',
-    }),
     new HtmlWebpackPlugin({
       title: 'Ready About',
       template: './src/client/template.html',
@@ -100,6 +95,8 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
+
     // new webpack.DefinePlugin(envKeys),
+    new webpack.HotModuleReplacementPlugin(),
   ],
 };
