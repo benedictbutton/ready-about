@@ -5,6 +5,7 @@ const webpack = require('webpack');
 // Make sure this plugin is listed first
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 // const envKeys = require('./src/server/config/dotenv');
 
 module.exports = {
@@ -95,6 +96,7 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
+    new ESLintPlugin(options),
     // new webpack.DefinePlugin(envKeys),
     new webpack.HotModuleReplacementPlugin(),
   ],
