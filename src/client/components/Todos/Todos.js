@@ -199,9 +199,7 @@ const Todos = props => {
             className={classes.scroll}
             ref={el => (lastItem.current = el)}
             aria-hidden="true"
-          >
-            &times;
-          </span>
+          />
         </List>
       }
       textField={

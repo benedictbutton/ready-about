@@ -42,7 +42,9 @@ code {
   -webkit-background-size: 100% 50%, 100% 50%;
   background-size: 100% 50%, 100% 50%;
 }
-/* Animation */
+
+/* Animations */
+
 .item-enter {
   animation-name: fadeInUp;
   -webkit-animation-name: fadeInUp;
@@ -65,6 +67,35 @@ code {
   animation-duration: 500ms;
   -webkit-animation-name: fadeOutDown;
   -webkit-animation-duration: fadeOutDown;
+  /* opacity: 0; */
+}
+
+.link-enter {
+  animation-name: fadeIn;
+  -webkit-animation-name: fadeIn;
+  font-family: "'Parisienne', cursive";
+  /* opacity: 0; */
+}
+.link-enter-active {
+  animation-name: fadeIn;
+  animation-duration: 700ms;
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: fadeIn;
+  font-family: "'Parisienne', cursive";
+  /* opacity: 1; */
+}
+.link-exit {
+  animation-name: fadeOut;
+  -webkit-animation-name: fadeOut;
+  font-family: "'Helvetica Neue', sans-serif";
+  /* opacity: 1; */
+}
+.link-exit-active {
+  animation-name: fadeOut;
+  animation-duration: 700ms;
+  -webkit-animation-name: fadeOut;
+  -webkit-animation-duration: fadeOut;
+  font-family: "'Helvetica Neue', sans-serif";
   /* opacity: 0; */
 }
 
@@ -103,4 +134,49 @@ code {
   animation-duration: 1000ms;
   -webkit-animation-name: fadeOutDown;
   -webkit-andimation-duration: fadeOutDown;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0, 5);
+    /* font-family: "'Parisienne', cursive"; */
+    font-family: "'Helvetica Neue', sans-serif";
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, -5);
+    font-family: "'Parisienne', cursive";
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 700ms;
+  -webkit-animation-name: fadeIn;
+  -webkit-andimation-duration: fadeIn;
+  font-family: "'Parisienne', cursive";
+}
+
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 5);
+    font-family: "'Parisienne', cursive";
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 0, -5);
+    font-family: "'Helvetica Neue', sans-serif";
+  }
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+  animation-duration: 700ms;
+  -webkit-animation-name: fadeOut;
+  -webkit-andimation-duration: fadeOut;
+  font-family: "'Helvetica Neue', sans-serif";
 }
