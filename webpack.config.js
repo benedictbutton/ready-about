@@ -96,7 +96,7 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
-    new ESLintPlugin(options),
+    new ESLintPlugin(),
     // new webpack.DefinePlugin(envKeys),
     new webpack.HotModuleReplacementPlugin(),
   ],
