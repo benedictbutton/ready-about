@@ -41,7 +41,7 @@ const SkuCollection = ({ promo, handleChange }) => {
           productpromotioncontext ppc ON
           ppa.productpromotionattributeid =
           ppc.productpromotionattributeid WHERE code = 'store' AND
-          promotionid = (SELECT promotionid from promotion WHERE name
+          promotionid = (SELECT promotionid from promotion WHERE code
           = '
           <strong>
             {promo === '' ? <em>promo searched</em> : promo}
