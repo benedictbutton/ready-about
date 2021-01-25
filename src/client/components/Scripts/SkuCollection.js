@@ -42,7 +42,10 @@ const SkuCollection = ({ promo, handleChange }) => {
           ppa.productpromotionattributeid =
           ppc.productpromotionattributeid WHERE code = 'store' AND
           promotionid = (SELECT promotionid from promotion WHERE name
-          = '{promo}
+          = '
+          <strong>
+            {promo === '' ? <em>promo searched</em> : promo}
+          </strong>
           ')
         </Typography>
       </Grid>

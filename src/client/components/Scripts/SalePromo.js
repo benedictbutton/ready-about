@@ -94,7 +94,7 @@ const SalePromo = ({ newPromo, promoSkus, ppa }) => {
           'Sale') AS [PromotionCategoryId] FROM
           ProductPromotionAttribute WHERE (ProductId = (SELECT
           ProductId FROM Product WHERE SKU = '<strong>{sku}</strong>
-          ')) -- PURCHASE PAGE SKU
+          '))
           <br /> AND PromotionId = (SELECT PromotionId FROM Promotion
           WHERE Code = '
 <strong>{newPromo}</strong>

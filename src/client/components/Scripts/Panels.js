@@ -10,6 +10,7 @@ import PPC from './PPC';
 import SalePromo from './SalePromo';
 import StorefrontCategories from './StorefrontCategories';
 import StorefrontTag from './StorefrontTag';
+import SaleFilterSkus from './SaleFilterSkus';
 import Scripts from './Scripts';
 import Main from '../Main';
 import MyAppBar from '../AppBar/MyAppBar';
@@ -84,7 +85,7 @@ export default function Panels({ values, ppa, handleChange }) {
           id="panel1d-header"
         >
           <Typography className={classes.type} component="h6">
-            ------ COLLECT SKUS FROM PREVIOUS PROMO ------
+            COLLECT SKUS FROM PREVIOUS PROMO{' '}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -104,7 +105,7 @@ export default function Panels({ values, ppa, handleChange }) {
           id="panel2d-header"
         >
           <Typography className={classes.type} component="h6">
-            ------ COPY PPA TO NEW PROMOTION ------
+            COPY PPA TO NEW PROMOTION{' '}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -126,7 +127,7 @@ export default function Panels({ values, ppa, handleChange }) {
           id="panel3d-header"
         >
           <Typography className={classes.type} component="h6">
-            ------ COPY PPC TO NEW PROMOTION ------
+            COPY PPC TO NEW PROMOTION{' '}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -148,8 +149,7 @@ export default function Panels({ values, ppa, handleChange }) {
           id="panel4d-header"
         >
           <Typography className={classes.type} component="h6">
-            ------ COPY PROMOTION CATEGORIES (AKA STOREFRONT
-            CATEGORIES) ------
+            COPY PROMOTION CATEGORIES (AKA STOREFRONT CATEGORIES){' '}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -171,13 +171,14 @@ export default function Panels({ values, ppa, handleChange }) {
           id="panel5d-header"
         >
           <Typography className={classes.type} component="h6">
-            ------ ADD SALE PROMO TO PRODUCTS INDICATED ------{' '}
+            ADD SALE PROMO TO PRODUCTS INDICATED
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <SalePromo
             newPromo={values.newPromo}
             promoSkus={values.promoSkus || ''}
+            ppa={ppa}
           />
         </AccordionDetails>
       </Accordion>
@@ -191,12 +192,34 @@ export default function Panels({ values, ppa, handleChange }) {
           id="panel6d-header"
         >
           <Typography className={classes.type} component="h6">
-            ------ INSERT SALE TAG FOR STOREFRONT FILTERING ------{' '}
+            INSERT SALE TAG FOR STOREFRONT FILTERING
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <StorefrontTag
             filterDescription={values.filterDescription}
+          />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        square
+        expanded={expanded === 'panel7'}
+        onChange={handlePanel('panel7')}
+      >
+        <AccordionSummary
+          aria-controls="panel7d-content"
+          id="panel7d-header"
+        >
+          <Typography className={classes.type} component="h6">
+            INSERT PPA TO SALE FILTER (FOR PRODUCTS PROMOTED)
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <SaleFilterSkus
+            newPromo={values.newPromo}
+            promoSkus={values.promoSkus || ''}
+            filterDescription={values.filterDescription}
+            ppa={ppa}
           />
         </AccordionDetails>
       </Accordion>

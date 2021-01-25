@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   form: {
-    marginTop: theme.spacing(2),
+    margin: theme.spacing(2),
   },
   button: {
     margin: theme.spacing(2),
@@ -33,8 +33,8 @@ const Form = ({
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div className={classes.form}>
-        <Grid container spacing={5}>
-          <Grid item xs={4}>
+        <Grid container spacing={5} justify="space-around">
+          <Grid item xs={5}>
             <TextField
               fullWidth
               id="outlined-basic"
@@ -67,7 +67,7 @@ const Form = ({
               variant="outlined"
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={5}>
             <TextField
               fullWidth
               id="outlined-basic"
@@ -80,7 +80,7 @@ const Form = ({
             <TextField
               fullWidth
               id="outlined-multiline-static"
-              label="Promotional Skus"
+              label="Promoted Skus"
               multiline
               fullWidth
               rows={5}

@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const StorefrontTag = ({ newPromo }) => {
+const StorefrontTag = ({ filterDescription }) => {
   const classes = useStyles();
   return (
     <>
@@ -41,7 +41,9 @@ const StorefrontTag = ({ newPromo }) => {
             <br />
             VALUES((SELECT TagGroupId FROM TagGroup WHERE Description
             = 'Storefront Filtering - Sale'), '
-            <strong>{newPromo || <em>New Promo</em>}</strong>
+            <strong>
+              {filterDescription || <em>Filter Tag Description</em>}
+            </strong>
             ', 1);
           </Typography>
         </Grid>
