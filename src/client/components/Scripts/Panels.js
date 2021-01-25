@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
+import SkuCollection from './SkuCollection';
 import PPA from './PPA';
 import PPC from './PPC';
+import SalePromo from './SalePromo';
+import StorefrontCategories from './StorefrontCategories';
+import StorefrontTag from './StorefrontTag';
 import Scripts from './Scripts';
 import Main from '../Main';
 import MyAppBar from '../AppBar/MyAppBar';
 import useForm from '../CustomHooks';
+
+const useStyles = makeStyles(theme => ({
+  type: {
+    width: '100%',
+    textAlign: 'center',
+    fontWeight: 700,
+  },
+}));
 
 const Accordion = withStyles({
   root: {
@@ -52,7 +64,8 @@ const AccordionDetails = withStyles(theme => ({
   },
 }))(MuiAccordionDetails);
 
-export default function Panels({ values, ppa }) {
+export default function Panels({ values, ppa, handleChange }) {
+  const classes = useStyles();
   const [expanded, setExpanded] = useState('panel1');
 
   const handlePanel = panel => (event, newExpanded) => {
@@ -70,14 +83,14 @@ export default function Panels({ values, ppa }) {
           aria-controls="panel1d-content"
           id="panel1d-header"
         >
-          <Typography>PPA</Typography>
+          <Typography className={classes.type} component="h6">
+            ------ COLLECT SKUS FROM PREVIOUS PROMO ------
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <PPA
-            oldPromo={values.oldPromo}
-            newPromo={values.newPromo}
-            skus={values.skus || ''}
-            ppa={ppa}
+          <SkuCollection
+            promo={values.promo || ''}
+            handleChange={handleChange}
           />
         </AccordionDetails>
       </Accordion>
@@ -90,10 +103,12 @@ export default function Panels({ values, ppa }) {
           aria-controls="panel2d-content"
           id="panel2d-header"
         >
-          <Typography>PPC</Typography>
+          <Typography className={classes.type} component="h6">
+            ------ COPY PPA TO NEW PROMOTION ------
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <PPC
+          <PPA
             oldPromo={values.oldPromo}
             newPromo={values.newPromo}
             skus={values.skus || ''}
@@ -110,18 +125,86 @@ export default function Panels({ values, ppa }) {
           aria-controls="panel3d-content"
           id="panel3d-header"
         >
-          <Typography>Collapsible Group Item #3</Typography>
+          <Typography className={classes.type} component="h6">
+            ------ COPY PPC TO NEW PROMOTION ------
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Suspendisse malesuada lacus ex, sit amet blandit leo
-            lobortis eget. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Suspendisse malesuada lacus ex, sit amet
-            blandit leo lobortis eget.
+          <PPC
+            oldPromo={values.oldPromo}
+            newPromo={values.newPromo}
+            skus={values.skus || ''}
+            ppa={ppa}
+          />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        square
+        expanded={expanded === 'panel4'}
+        onChange={handlePanel('panel4')}
+      >
+        <AccordionSummary
+          aria-controls="panel4d-content"
+          id="panel4d-header"
+        >
+          <Typography className={classes.type} component="h6">
+            ------ COPY PROMOTION CATEGORIES (AKA STOREFRONT
+            CATEGORIES) ------
           </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <StorefrontCategories
+            oldPromo={values.oldPromo}
+            newPromo={values.newPromo}
+            skus={values.skus || ''}
+            ppa={ppa}
+          />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        square
+        expanded={expanded === 'panel5'}
+        onChange={handlePanel('panel5')}
+      >
+        <AccordionSummary
+          aria-controls="panel5d-content"
+          id="panel5d-header"
+        >
+          <Typography className={classes.type} component="h6">
+            ------ ADD SALE PROMO TO PRODUCTS INDICATED ------{' '}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <SalePromo
+            newPromo={values.newPromo}
+            promoSkus={values.promoSkus || ''}
+          />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        square
+        expanded={expanded === 'panel6'}
+        onChange={handlePanel('panel6')}
+      >
+        <AccordionSummary
+          aria-controls="panel6d-content"
+          id="panel6d-header"
+        >
+          <Typography className={classes.type} component="h6">
+            ------ INSERT SALE TAG FOR STOREFRONT FILTERING ------{' '}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <StorefrontTag
+            filterDescription={values.filterDescription}
+          />
         </AccordionDetails>
       </Accordion>
     </div>
   );
 }
+
+// <PromoTag oldPromo={values.oldPromo}
+// newPromo={values.newPromo}
+// skus={values.skus || ''}
+// ppa={ppa}/>

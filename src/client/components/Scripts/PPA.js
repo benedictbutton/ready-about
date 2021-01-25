@@ -28,19 +28,7 @@ const useStyles = makeStyles(theme => ({
 const PPA = ({ oldPromo, newPromo, skus, ppa }) => {
   const classes = useStyles();
 
-  const scripts = skus.split('\n').map((sku, idx) => {
-    return (
-      <span key={sku}>
-        {idx === 0 ? '' : 'OR '}
-        ProductId = (SELECT ProductId FROM Product WHERE SKU = '
-        <strong>{sku}</strong>
-        ' )
-        <br />
-      </span>
-    );
-  });
-
-  return (
+  const scriptCopy = (
     <Grid className={classes.grid}>
       <Typography
         className={classes.text}
@@ -52,19 +40,72 @@ const PPA = ({ oldPromo, newPromo, skus, ppa }) => {
         HasPriorityProcessing, Title, Description, OfferUrl,
         MobileOfferUrl, SortOrder, DiscountValue, PromoCode,
         GuaranteeTypeId) SELECT (SELECT PromotionId FROM Promotion
-        WHERE Code = '{newPromo || <em>New Promo</em>}
+        WHERE Code = '
+        <strong>
+          <em>New Promo</em>
+        </strong>
         ') AS [PromotionId], ProductId, WarrantyTypeId, MSRP,
         MSRPOverride, Shipping, HasPriorityProcessing, Title,
         Description, OfferUrl, MobileOfferUrl, SortOrder,
         DiscountValue, PromoCode, GuaranteeTypeId FROM
-        ProductPromotionAttribute WHERE ({scripts || null}
-) AND
-        PromotionId = (SELECT PromotionId FROM Promotion WHERE Code =
-        '
-{oldPromo || <em>Old Promo</em>}
+        ProductPromotionAttribute WHERE (
+        <strong>
+          <em>(ProductId Selects here)</em>
+        </strong>
+        ) ) AND PromotionId = (SELECT PromotionId FROM Promotion WHERE
+        Code = '
+        <strong>
+          <em>Old Promo</em>
+        </strong>
         '
       </Typography>
     </Grid>
+  );
+
+  const scripts = skus.split('\n').map((sku, idx) => {
+    return (
+      <span key={sku}>
+        {idx === 0 ? <br /> : 'OR '}
+        ProductId = (SELECT ProductId FROM Product WHERE SKU = '
+        <strong>{sku}</strong>
+        ' )
+        <br />
+      </span>
+    );
+  });
+
+  return (
+    <>
+      {!ppa ? (
+        scriptCopy
+      ) : (
+        <Grid className={classes.grid}>
+          <Typography
+            className={classes.text}
+            variant="body1"
+            gutterBottom
+          >
+            INSERT INTO ProductPromotionAttribute(PromotionId,
+            ProductId, WarrantyTypeId, MSRP, MSRPOverride, Shipping,
+            HasPriorityProcessing, Title, Description, OfferUrl,
+            MobileOfferUrl, SortOrder, DiscountValue, PromoCode,
+            GuaranteeTypeId) SELECT (SELECT PromotionId FROM Promotion
+            WHERE Code = '
+            <strong>{newPromo || <em>New Promo</em>}</strong>
+            ') AS [PromotionId], ProductId, WarrantyTypeId, MSRP,
+            MSRPOverride, Shipping, HasPriorityProcessing, Title,
+            Description, OfferUrl, MobileOfferUrl, SortOrder,
+            DiscountValue, PromoCode, GuaranteeTypeId FROM
+            ProductPromotionAttribute WHERE ({scripts}
+) AND
+            PromotionId = (SELECT PromotionId FROM Promotion WHERE
+            Code = '
+<strong>{oldPromo}</strong>
+            '
+          </Typography>
+        </Grid>
+      )}
+    </>
   );
 };
 

@@ -57,8 +57,9 @@ const Script = () => {
         handleSubmit={handleSubmit}
         handleResetValues={handleResetValues}
         ppa={ppa}
+        setPpa={setPpa}
       />
-      <Panels values={values} ppa={ppa} />
+      <Panels values={values} ppa={ppa} handleChange={handleChange} />
     </>
   );
 
@@ -91,41 +92,41 @@ export default Script;
 // '),
 //
 
-// GI505WBKIT
-// S1000WBKT
-// S3973DWBKT
-// ZS352WBKT
-// ZU562WBKT
-// WV201WBKT
-// ZS362WBKT
-// ZU62WBKT
-// NV501WBKT
-// SV1106WKT
-// RV1000
-// NV150WBKT
-// RV1001AE
-// S6002WBKT
-// CH951WBKT
-// LA322WBKT
-// LA502WBKT
-// HZ2002WBKT
-// QU201QBNWK
-// IZ462HWBKT
-// RV1000SWBK
-// AZ1002WBKT
-// AZ2002
-// AZ2000W
-// IZ162HWBKT
-// AZ1003WBKT
-// LZ601B4
-// IZ142WBKT
-// IX141WBKT
-// WS620WBKT
-// VM251WBKT
-// VM251B1
-// VM251B3
-// RV761NP
-// HV302NP
-// RV2001NP
-// RV2001WDNP
-// ZU632WBK
+// GI505WBKIT;
+// S1000WBKT;
+// S3973DWBKT;
+// ZS352WBKT;
+// ZU562WBKT;
+// WV201WBKT;
+// ZS362WBKT;
+// ZU62WBKT;
+// NV501WBKT;
+// SV1106WKT;
+// RV1000;
+// NV150WBKT;
+// RV1001AE;
+// S6002WBKT;
+// CH951WBKT;
+// LA322WBKT;
+// LA502WBKT;
+// HZ2002WBKT;
+// QU201QBNWK;
+// IZ462HWBKT;
+// RV1000SWBK;
+// AZ1002WBKT;
+// AZ2002;
+// AZ2000W;
+// IZ162HWBKT;
+// AZ1003WBKT;
+// LZ601B4;
+// IZ142WBKT;
+// IX141WBKT;
+// WS620WBKT;
+// VM251WBKT;
+// VM251B1;
+// VM251B3;
+// RV761NP;
+// HV302NP;
+// RV2001NP;
+// RV2001WDNP;
+// ZU632WBK;
