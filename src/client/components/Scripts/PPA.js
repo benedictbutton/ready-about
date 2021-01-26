@@ -57,7 +57,7 @@ const PPA = ({ oldPromo, newPromo, skus, ppa }) => {
         <strong>
           <em>Old Promo</em>
         </strong>
-        '
+        ')
       </Typography>
     </Grid>
   );
@@ -101,7 +101,7 @@ const PPA = ({ oldPromo, newPromo, skus, ppa }) => {
             PromotionId = (SELECT PromotionId FROM Promotion WHERE
             Code = '
 <strong>{oldPromo}</strong>
-            '
+            ')
           </Typography>
         </Grid>
       )}

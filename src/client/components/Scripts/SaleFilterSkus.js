@@ -58,7 +58,7 @@ const SaleFilterSkus = ({
         <strong>
           <em>New Promo</em>
         </strong>
-        '
+        ')
       </Typography>
     </Grid>
   );
@@ -97,7 +97,7 @@ const SaleFilterSkus = ({
             PromotionId = (SELECT PromotionId FROM Promotion WHERE
             Code = '
 <strong>{newPromo}</strong>
-            '
+            ')
           </Typography>
         </Grid>
       )}
