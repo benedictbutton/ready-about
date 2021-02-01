@@ -53,12 +53,12 @@ const SaleFilterSkus = ({
         <strong>
           <em>(ProductId Selects here)</em>
         </strong>
-        ) ) AND PromotionId = (SELECT PromotionId FROM Promotion WHERE
+        ) AND PromotionId = (SELECT PromotionId FROM Promotion WHERE
         Code = '
         <strong>
           <em>New Promo</em>
         </strong>
-        ')
+        ');
       </Typography>
     </Grid>
   );
@@ -93,11 +93,11 @@ const SaleFilterSkus = ({
             tg.TagGroupId WHERE tg.Description = 'Storefront Filtering
             - Sale' AND t.Description = '{filterDescription}
             ') FROM ProductPromotionAttribute WHERE ({scripts}
-) ) AND
-            PromotionId = (SELECT PromotionId FROM Promotion WHERE
+) AND
+            PromotionId = (SELECT PromotionId FROM Promot ion WHERE
             Code = '
 <strong>{newPromo}</strong>
-            ')
+            ');
           </Typography>
         </Grid>
       )}

@@ -32,6 +32,9 @@ const useStyles = makeStyles(theme => ({
 const Script = () => {
   const classes = useStyles();
   const [ppa, setPpa] = useState(false);
+  const [promoValues, setPromoValues] = useState([
+    { skus: '', code: '', discount: '', unit: '$' },
+  ]);
 
   const displayScripts = () => {
     setPpa(true);
@@ -43,6 +46,40 @@ const Script = () => {
     handleResetValues,
     handleSubmit,
   } = useForm(displayScripts);
+
+  const handlePromoValues = (event, idx) => {
+    setPromoValues(() => {
+      const newPromoValues = promoValues.map((obj, i) => {
+        if (i !== idx) return obj;
+        return {
+          ...obj,
+          [event.target.name]: event.target.value,
+        };
+      });
+      return newPromoValues;
+    });
+  };
+
+  const handleUnitValue = (event, idx, unitValue) => {
+    setPromoValues(() => {
+      const newPromoValues = promoValues.map((obj, i) => {
+        if (i !== idx) return obj;
+        return {
+          ...obj,
+          unit: unitValue,
+        };
+      });
+      return newPromoValues;
+    });
+  };
+
+  const handleAddPromoFields = () => {
+    setPromoValues(() =>
+      promoValues.concat([
+        { skus: '', code: '', discount: '', unit: '$' },
+      ]),
+    );
+  };
 
   useEffect(() => {
     if (!ppa) return;
@@ -58,8 +95,17 @@ const Script = () => {
         handleResetValues={handleResetValues}
         ppa={ppa}
         setPpa={setPpa}
+        promoValues={promoValues}
+        handlePromoValues={handlePromoValues}
+        handleUnitValue={handleUnitValue}
+        handleAddPromoFields={handleAddPromoFields}
       />
-      <Panels values={values} ppa={ppa} handleChange={handleChange} />
+      <Panels
+        values={values}
+        ppa={ppa}
+        handleChange={handleChange}
+        promoValues={promoValues}
+      />
     </>
   );
 
@@ -68,36 +114,12 @@ const Script = () => {
 
 export default Script;
 
-// INSERT INTO
-// return <Main appBar={<MyAppBar />} main={selections} />;
-// ProductPromotionAttributePromotionCategory(ProductPromotionAttributeId,
-// PromotionCategoryId,
-// SortOrder,    MobileSortOrder) SELECT (SELECT
-// ProductPromotionAttributeId         FROM
-// ProductPromotionAttribute         WHERE PromotionId = (SELECT
-// PromotionId FROM Promotion WHERE Code = 'MLK21')         AND
-// ProductId = (SELECT ProductId FROM Product WHERE SKU = '{sku}
-// ')) AS [PromotionId],         ppapc.PromotionCategoryId,
-//         ppapc.SortOrder,         ppapc.MobileSortOrder FROM
-// ProductPromotionAttributePromotionCategory ppapc INNER JOIN
-// ProductPromotionAttribute ppa ON
-// ppapc.ProductPromotionAttributeId =
-// ppa.ProductPromotionAttributeId WHERE (ppa.ProductId = (SELECT
-// ProductId FROM Product WHERE SKU = '{sku}
-// '))        AND ppa.PromotionId = (SELECT PromotionId FROM
-// Promotion WHERE Code = 'DEFAULT17');
-//
-// OR ProductId = (SELECT ProductId FROM Product WHERE SKU = '
-// {sku}
-// '),
-//
-
 // GI505WBKIT;
 // S1000WBKT;
 // S3973DWBKT;
 // ZS352WBKT;
-// ZU562WBKT;
 // WV201WBKT;
+// ZU562WBKT;
 // ZS362WBKT;
 // ZU62WBKT;
 // NV501WBKT;
