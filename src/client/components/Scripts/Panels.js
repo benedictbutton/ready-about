@@ -8,6 +8,7 @@ import SkuCollection from './SkuCollection';
 import PPA from './PPA';
 import PPC from './PPC';
 import PromoCodes from './PromoCodes';
+import UpdatePPA from './UpdatePPA';
 import SalePromo from './SalePromo';
 import StorefrontCategories from './StorefrontCategories';
 import StorefrontTag from './StorefrontTag';
@@ -239,11 +240,32 @@ export default function Panels({
           id="panel8d-header"
         >
           <Typography className={classes.type} component="h6">
-            PPA TAG, CODE, & DISCOUNT
+            PPA TAG
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <PromoCodes
+            newPromo={values.newPromo}
+            promoValues={promoValues}
+            ppa={ppa}
+          />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        square
+        expanded={expanded === 'panel9'}
+        onChange={handlePanel('panel9')}
+      >
+        <AccordionSummary
+          aria-controls="panel9d-content"
+          id="panel9d-header"
+        >
+          <Typography className={classes.type} component="h6">
+            UPDATE PPA PROMOCODE & DISCOUNT
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <UpdatePPA
             newPromo={values.newPromo}
             promoValues={promoValues}
             ppa={ppa}

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Main from '../Main';
@@ -114,17 +113,17 @@ const Script = () => {
 
 export default Script;
 
-// GI505WBKIT;
-// S1000WBKT;
-// S3973DWBKT;
-// ZS352WBKT;
-// WV201WBKT;
-// ZU562WBKT;
-// ZS362WBKT;
-// ZU62WBKT;
-// NV501WBKT;
-// SV1106WKT;
-// RV1000;
+// GI505WBKIT
+// S1000WBKT
+// S3973DWBKT
+// ZS352WBKT
+// WV201WBKT
+// ZU562WBKT
+// ZS362WBKT
+// ZU62WBKT
+// NV501WBKT
+// SV1106WKT
+// RV1000
 // NV150WBKT;
 // RV1001AE;
 // S6002WBKT;

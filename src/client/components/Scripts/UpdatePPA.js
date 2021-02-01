@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -17,21 +17,16 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'left',
     padding: theme.spacing(2),
   },
-  def: {
-    marginLeft: theme.spacing(4),
-  },
-  subMenu: {
-    margin: theme.spacing(2),
-  },
 }));
 
-const PromoCodes = ({ promoValues, newPromo, ppa }) => {
+const UpdatePPA = ({ promoValues, newPromo, ppa }) => {
   const classes = useStyles();
   const text = useRef(null);
 
   const selectAll = event => {
     window.getSelection().selectAllChildren(text.current);
   };
+
   const scriptCopy = (
     <Grid className={classes.grid}>
       <Typography
@@ -39,16 +34,16 @@ const PromoCodes = ({ promoValues, newPromo, ppa }) => {
         variant="body1"
         gutterBottom
       >
-        INSERT INTO
-        ProductPromotionAttributeTag(ProductPromotionAttributeId,
-        TagId) SELECT ProductPromotionAttributeId, (SELECT t.TagId
-        FROM Tag t JOIN TagGroup tg ON t.TagGroupId = tg.TagGroupId
-        WHERE tg.Description = 'Product Pod Promo Messaging' AND
-        t.Description = '
+        UPDATE ProductPromotionAttribute set promoCode = '
         <strong>
-          <em>PPA Tag</em>
+          <em>Promo Code</em>
         </strong>
-        ') FROM ProductPromotionAttribute WHERE (
+        ', discountValue ={' '}
+        <strong>
+          <em>Discount Value</em>
+        </strong>
+        <br />
+        WHERE (
         <strong>
           <em>ProductId Selects here</em>
         </strong>
@@ -63,10 +58,6 @@ const PromoCodes = ({ promoValues, newPromo, ppa }) => {
   );
 
   const scripts = promoValues.map((obj, idx) => {
-    const ppaTag =
-      obj.unit === '%'
-        ? '{{discountValue}}% off<sup>†</sup> with promo code <strong>{{promoCode}}</strong>'
-        : '${{discountValue}} off<sup>†</sup> with promo code <strong>{{promoCode}}</strong>';
     return (
       <Grid item xs={12} key={idx}>
         <Typography
@@ -74,14 +65,11 @@ const PromoCodes = ({ promoValues, newPromo, ppa }) => {
           variant="body1"
           gutterBottom
         >
-          INSERT INTO
-          ProductPromotionAttributeTag(ProductPromotionAttributeId,
-          TagId) SELECT ProductPromotionAttributeId, (SELECT t.TagId
-          FROM Tag t JOIN TagGroup tg ON t.TagGroupId = tg.TagGroupId
-          WHERE tg.Description = 'Product Pod Promo Messaging' AND
-          t.Description = '<strong>{ppaTag}</strong>
-          ') FROM ProductPromotionAttribute WHERE (
-          {obj.skus.split('\n').map((sku, i) => (
+          UPDATE ProductPromotionAttribute set promoCode = '
+          <strong>{obj.code}</strong>
+          ', discountValue = '<strong>{obj.discount}</strong>
+' WHERE (
+{obj.skus.split('\n').map((sku, i) => (
             <span key={sku}>
               {i === 0 ? <br /> : 'OR '}
               ProductId = (SELECT ProductId FROM Product WHERE SKU = '
@@ -97,11 +85,6 @@ const PromoCodes = ({ promoValues, newPromo, ppa }) => {
       </Grid>
     );
   });
-
-  const ppaTag =
-    'percent' === 'percent'
-      ? '{{discountValue}}% off<sup>†</sup> with promo code <strong>{{promoCode}}</strong>'
-      : '${{discountValue}} off<sup>†</sup> with promo code <strong>{{promoCode}}</strong>';
 
   return (
     <>
@@ -121,4 +104,4 @@ const PromoCodes = ({ promoValues, newPromo, ppa }) => {
   );
 };
 
-export default PromoCodes;
+export default UpdatePPA;
