@@ -8,6 +8,13 @@ const useForm = callback => {
 
   const { todos } = useSelector(state => state.todos);
 
+  const handleValuesArray = key => {
+    setValues(values => ({
+      ...values,
+      [key]: [],
+    }));
+  };
+
   const handleChange = event => {
     event.persist();
     setValues(values => ({
@@ -97,6 +104,7 @@ const useForm = callback => {
 
   return {
     values,
+    handleValuesArray,
     selected,
     handleChange,
     handleClick,

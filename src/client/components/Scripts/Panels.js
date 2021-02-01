@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import SkuCollection from './SkuCollection';
 import PPA from './PPA';
 import PPC from './PPC';
+import PromoCodes from './PromoCodes';
 import SalePromo from './SalePromo';
 import StorefrontCategories from './StorefrontCategories';
 import StorefrontTag from './StorefrontTag';
@@ -65,7 +66,12 @@ const AccordionDetails = withStyles(theme => ({
   },
 }))(MuiAccordionDetails);
 
-export default function Panels({ values, ppa, handleChange }) {
+export default function Panels({
+  values,
+  ppa,
+  handleChange,
+  promoValues,
+}) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState('panel1');
 
@@ -219,6 +225,27 @@ export default function Panels({ values, ppa, handleChange }) {
             newPromo={values.newPromo}
             promoSkus={values.promoSkus || ''}
             filterDescription={values.filterDescription}
+            ppa={ppa}
+          />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        square
+        expanded={expanded === 'panel8'}
+        onChange={handlePanel('panel8')}
+      >
+        <AccordionSummary
+          aria-controls="panel8d-content"
+          id="panel8d-header"
+        >
+          <Typography className={classes.type} component="h6">
+            PPA TAG, CODE, & DISCOUNT
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <PromoCodes
+            newPromo={values.newPromo}
+            promoValues={promoValues}
             ppa={ppa}
           />
         </AccordionDetails>

@@ -50,14 +50,14 @@ const PPA = ({ oldPromo, newPromo, skus, ppa }) => {
         DiscountValue, PromoCode, GuaranteeTypeId FROM
         ProductPromotionAttribute WHERE (
         <strong>
-          <em>(ProductId Selects here)</em>
+          <em>ProductId Selects here</em>
         </strong>
         ) ) AND PromotionId = (SELECT PromotionId FROM Promotion WHERE
         Code = '
         <strong>
           <em>Old Promo</em>
         </strong>
-        ')
+        ');
       </Typography>
     </Grid>
   );
@@ -101,7 +101,7 @@ const PPA = ({ oldPromo, newPromo, skus, ppa }) => {
             PromotionId = (SELECT PromotionId FROM Promotion WHERE
             Code = '
 <strong>{oldPromo}</strong>
-            ')
+            ');
           </Typography>
         </Grid>
       )}
