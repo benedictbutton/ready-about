@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SalePromo = ({ newPromo, promoSkus, ppa }) => {
+const SalePromo = ({ newPromo, promoValues, ppa }) => {
   const classes = useStyles();
 
   const scriptCopy = (
@@ -71,37 +71,39 @@ const SalePromo = ({ newPromo, promoSkus, ppa }) => {
     </Grid>
   );
 
-  const scripts = promoSkus.split('\n').map(sku => {
-    return (
-      <Grid item xs={12} key={sku} className={classes.grid}>
-        <Typography
-          variant="h5"
-          component="h1"
-          className={classes.sku}
-        >
-          {ppa && <span>-- </span>}
-          <span style={{ textDecoration: 'underline' }}>{sku}</span>
-        </Typography>
-        <Typography
-          className={classes.text}
-          variant="body1"
-          gutterBottom
-        >
-          INSERT INTO
-          ProductPromotionAttributePromotionCategory(ProductPromotionAttributeId,PromotionCategoryId)
-          SELECT ProductPromotionAttributeId, (SELECT
-          PromotionCategoryId FROM PromotionCategory WHERE Name LIKE
-          'Sale') AS [PromotionCategoryId] FROM
-          ProductPromotionAttribute WHERE (ProductId = (SELECT
-          ProductId FROM Product WHERE SKU = '<strong>{sku}</strong>
-          '))
-          <br /> AND PromotionId = (SELECT PromotionId FROM Promotion
-          WHERE Code = '
+  const scripts = promoValues.map(obj => {
+    return obj.skus.split('\n').map(sku => {
+      return (
+        <Grid item xs={12} key={sku} className={classes.grid}>
+          <Typography
+            variant="h5"
+            component="h1"
+            className={classes.sku}
+          >
+            {ppa && <span>-- </span>}
+            <span style={{ textDecoration: 'underline' }}>{sku}</span>
+          </Typography>
+          <Typography
+            className={classes.text}
+            variant="body1"
+            gutterBottom
+          >
+            INSERT INTO
+            ProductPromotionAttributePromotionCategory(ProductPromotionAttributeId,PromotionCategoryId)
+            SELECT ProductPromotionAttributeId, (SELECT
+            PromotionCategoryId FROM PromotionCategory WHERE Name LIKE
+            'Sale') AS [PromotionCategoryId] FROM
+            ProductPromotionAttribute WHERE (ProductId = (SELECT
+            ProductId FROM Product WHERE SKU = '<strong>{sku}</strong>
+            '))
+            <br /> AND PromotionId = (SELECT PromotionId FROM
+            Promotion WHERE Code = '
 <strong>{newPromo}</strong>
-          ');
-        </Typography>
-      </Grid>
-    );
+            ');
+          </Typography>
+        </Grid>
+      );
+    });
   });
 
   return (

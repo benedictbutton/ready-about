@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 const SaleFilterSkus = ({
   newPromo,
-  promoSkus,
+  promoValues,
   filterDescription,
   ppa,
 }) => {
@@ -63,16 +63,18 @@ const SaleFilterSkus = ({
     </Grid>
   );
 
-  const scripts = promoSkus.split('\n').map((sku, idx) => {
-    return (
-      <span key={sku}>
-        {idx === 0 ? <br /> : 'OR '}
-        ProductId = (SELECT ProductId FROM Product WHERE SKU = '
-        <strong>{sku}</strong>
-        ' )
-        <br />
-      </span>
-    );
+  const scripts = promoValues.map((obj, idx) => {
+    return obj.skus.split('\n').map((sku, i) => {
+      return (
+        <span key={sku}>
+          {idx === 0 && i === 0 ? <br /> : 'OR '}
+          ProductId = (SELECT ProductId FROM Product WHERE SKU = '
+          <strong>{sku}</strong>
+          ' )
+          <br />
+        </span>
+      );
+    });
   });
 
   return (

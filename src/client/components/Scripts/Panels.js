@@ -184,7 +184,7 @@ export default function Panels({
         <AccordionDetails>
           <SalePromo
             newPromo={values.newPromo}
-            promoSkus={values.promoSkus || ''}
+            promoValues={promoValues}
             ppa={ppa}
           />
         </AccordionDetails>
@@ -224,7 +224,7 @@ export default function Panels({
         <AccordionDetails>
           <SaleFilterSkus
             newPromo={values.newPromo}
-            promoSkus={values.promoSkus || ''}
+            promoValues={promoValues}
             filterDescription={values.filterDescription}
             ppa={ppa}
           />
