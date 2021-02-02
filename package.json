@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode=production",
-    "start": "yarn build && node src/server/app.js",
+    "start": "yarn build && node --optimize_for_size --max_old_space_size=920 --gc_interval=100 src/server/app.js",
     "client": "webpack-dev-server --mode=development",
     "server": "nodemon --inspect src/server/app.js",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
