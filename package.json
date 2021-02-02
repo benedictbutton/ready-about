@@ -78,7 +78,7 @@
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10"
   },
-  "optionalDependencies": {
+  "devDependencies": {
     "babel-eslint": "^10.0.3",
     "concurrently": "^4.1.1",
     "eslint": "^6.7.2",
