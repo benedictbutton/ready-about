@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb", "airbnb-base", "prettier"],
+  "extends": ["airbnb", "prettier"],
   "plugins": ["prettier", "react-hooks"],
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true }],

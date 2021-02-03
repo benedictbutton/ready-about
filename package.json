@@ -11,6 +11,23 @@
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "concurrently": "^4.1.1",
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.19.1",
+    "react-hot-loader": "^4.12.6",
+    "webpack-dev-middleware": "^3.7.0",
+    "webpack-dev-server": "^3.7.2"
+  },
   "dependencies": {
     "@apollo/federation": "^0.11.3",
     "@apollo/gateway": "^0.11.7",
@@ -77,22 +94,5 @@
     "url-loader": "^2.0.1",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.0.3",
-    "concurrently": "^4.1.1",
-    "eslint": "^6.7.2",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.7.0",
-    "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-react": "^7.17.0",
-    "eslint-plugin-react-hooks": "^2.3.0",
-    "nodemon": "^1.19.1",
-    "prettier": "^1.19.1",
-    "react-hot-loader": "^4.12.6",
-    "webpack-dev-middleware": "^3.7.0",
-    "webpack-dev-server": "^3.7.2"
   }
 }
