@@ -141,7 +141,6 @@ const getMe = async req => {
   // if (token) {
   try {
     const me = await auth.required;
-    debugger;
     return me;
   } catch (e) {
     // throw new AuthenticationError(
