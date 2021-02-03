@@ -34,9 +34,6 @@ const AddPromoCodes = ({
 }) => {
   const classes = useStyles(promoValues.unit);
 
-  console.log(promoValues);
-  console.log(values);
-
   let count = 0;
   const data = promoValues.map((input, idx) => {
     count++;
