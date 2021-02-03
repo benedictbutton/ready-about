@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode=production",
-    "start": "yarn build && node --optimize_for_size --max_old_space_size=920 --gc_interval=100 src/server/app.js",
+    "start": "yarn build && node src/server/app.js",
     "client": "webpack-dev-server --mode=development",
     "server": "nodemon --inspect src/server/app.js",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
@@ -89,6 +89,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
+    "fsevents": "2.3.1",
     "nodemon": "^1.19.1",
     "prettier": "^1.19.1",
     "react-hot-loader": "^4.12.6",
