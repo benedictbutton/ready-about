@@ -1,4 +1,5 @@
 const path = require('path');
+// test
 
 const distDir = path.resolve(__dirname, 'dist');
 const webpack = require('webpack');
