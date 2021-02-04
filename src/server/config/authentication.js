@@ -20,6 +20,7 @@ const auth = {
   }),
   optional: jwt({
     secret: process.env.SECRET,
+    algorithms: ['HS256'],
     userProperty: 'payload',
     getToken: getTokenFromHeaders,
     credentialsRequired: false,
