@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode=production",
-    "postinstall": "yarn build",
-    "start": "node src/server/app.js",
+    "start": "yarn build && node src/server/app.js",
     "client": "webpack-dev-server --mode=development",
     "server": "nodemon --inspect src/server/app.js",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
