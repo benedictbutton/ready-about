@@ -96,7 +96,7 @@ const SaleFilterSkus = ({
             - Sale' AND t.Description = '{filterDescription}
             ') FROM ProductPromotionAttribute WHERE ({scripts}
 ) AND
-            PromotionId = (SELECT PromotionId FROM Promot ion WHERE
+            PromotionId = (SELECT PromotionId FROM Promotion WHERE
             Code = '
 <strong>{newPromo}</strong>
             ');
