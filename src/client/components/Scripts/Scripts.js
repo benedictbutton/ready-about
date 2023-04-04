@@ -6,7 +6,7 @@ import Main from '../Main';
 import MyAppBar from '../AppBar/MyAppBar';
 import Form from './Form';
 import Panels from './Panels';
-import useForm from '../CustomHooks';
+import useForm from '../../CustomHooks/useForm';
 
 const useStyles = makeStyles(theme => ({
   sku: {

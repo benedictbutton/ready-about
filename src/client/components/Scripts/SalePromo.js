@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import useForm from '../CustomHooks';
+import useForm from '../../CustomHooks/useForm';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,8 +64,8 @@ const SalePromo = ({ newPromo, promoValues, ppa }) => {
         <br /> AND PromotionId = (SELECT PromotionId FROM Promotion
         WHERE Code = '
         <strong>
-  <em>New Promo</em>
-</strong>
+          <em>New Promo</em>
+        </strong>
         ');
       </Typography>
     </Grid>
@@ -97,8 +97,7 @@ const SalePromo = ({ newPromo, promoValues, ppa }) => {
             ProductId FROM Product WHERE SKU = '<strong>{sku}</strong>
             '))
             <br /> AND PromotionId = (SELECT PromotionId FROM
-            Promotion WHERE Code = '
-<strong>{newPromo}</strong>
+            Promotion WHERE Code = '<strong>{newPromo}</strong>
             ');
           </Typography>
         </Grid>

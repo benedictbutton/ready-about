@@ -10,7 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import useForm from '../CustomHooks';
+import useForm from '../../CustomHooks/useForm';
 
 const useStyles = makeStyles(theme => ({
   layout: {

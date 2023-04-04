@@ -7,6 +7,7 @@ import {
   USER_EDIT_SUCCESS,
   USER_ADD_AVATAR,
   CLIENT_ERROR,
+  CLEAR_ERROR,
 } from '../constants';
 
 const INITIAL_STATE = {
@@ -74,6 +75,12 @@ const applyClientError = (state, action) => ({
   error: action.error.message,
 });
 
+const applyClearError = (state, action) => ({
+  ...state,
+  requesting: false,
+  error: '',
+});
+
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case SIGNUP_REQUESTING:
@@ -92,6 +99,8 @@ function userReducer(state = INITIAL_STATE, action) {
       return applyUserAddAvatar(state, action);
     case CLIENT_ERROR:
       return applyClientError(state, action);
+    case CLEAR_ERROR:
+      return applyClearError(state, action);
 
     default:
       return state;

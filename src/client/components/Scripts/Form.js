@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Script from './Scripts';
 import AddPromoCodes from './AddPromoCodes';
-import useForm from '../CustomHooks';
+import useForm from '../../CustomHooks/useForm';
 
 const useStyles = makeStyles(theme => ({
   root: {

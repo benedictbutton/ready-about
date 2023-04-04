@@ -29,20 +29,19 @@ const Reminder = props => {
     handleResetSelected();
   };
 
-  return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <form onSubmit={handleSubmit}>
-        <DateTimePicker
-          open={open}
-          onClose={handleClose}
-          onAccept={selectedDate => handleSubmit(selectedDate)}
-          value={selectedDate}
-          onChange={handleDateChange}
-          format="MM/dd/yyyy HH:mm"
-        />
-      </form>
-    </MuiPickersUtilsProvider>
-  );
+  return null;
+  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <form onSubmit={handleSubmit}>
+      <DateTimePicker
+        open={open}
+        onClose={handleClose}
+        onAccept={selectedDate => handleSubmit(selectedDate)}
+        value={selectedDate}
+        onChange={handleDateChange}
+        format="MM/dd/yyyy HH:mm"
+      />
+    </form>
+  </MuiPickersUtilsProvider>;
 };
 
 export default Reminder;

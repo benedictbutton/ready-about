@@ -21,12 +21,12 @@ module.exports = {
     extensions: ['*', '.js', '.jsx'],
   },
   devServer: {
-    port: 5000,
+    port: 7000,
     open: true,
     hot: true,
     historyApiFallback: true,
     proxy: {
-      '/api': 'http://localhost:8080',
+      '/api': 'http://localhost:3000',
     },
     // instead of 'warning'
     clientLogLevel: 'silent',

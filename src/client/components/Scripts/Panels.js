@@ -16,7 +16,7 @@ import SaleFilterSkus from './SaleFilterSkus';
 import Scripts from './Scripts';
 import Main from '../Main';
 import MyAppBar from '../AppBar/MyAppBar';
-import useForm from '../CustomHooks';
+import useForm from '../../CustomHooks/useForm';
 
 const useStyles = makeStyles(theme => ({
   type: {

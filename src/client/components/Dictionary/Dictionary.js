@@ -10,8 +10,8 @@ import DictionaryToolbar from './Toolbar';
 import MyAppBar from '../AppBar/MyAppBar';
 import EntryField from './EntryField';
 import SubMenu from './SubMenu';
-import useForm from '../CustomHooks';
-import useApi from '../CustomHooks/useApi';
+import useForm from '../../CustomHooks/useForm';
+import useApi from '../../CustomHooks/useApi';
 import Header from './Header';
 
 const useStyles = makeStyles(theme => ({

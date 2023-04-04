@@ -23,7 +23,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MyAvatar from './Avatar';
 import AvatarField from './AvatarField';
-import useForm from '../CustomHooks';
+import useForm from '../../CustomHooks/useForm';
 import EditProfile from './EditProfile';
 import Field from './Field';
 

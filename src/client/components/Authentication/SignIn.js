@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { Redirect, Link, withRouter } from 'react-router-dom';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 // material-ui
@@ -7,10 +7,13 @@ import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import useForm from '../CustomHooks';
+import useForm from '../../CustomHooks/useForm';
+import useOutsideClick from '../../CustomHooks/useOutsideClick';
 
 const useStyles = makeStyles(theme => ({
   layout: {
@@ -42,6 +45,25 @@ const useStyles = makeStyles(theme => ({
     width: '100%', // Fix IE11 issue.
     marginTop: theme.spacing(1),
   },
+  modal: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: 2000,
+    background: 'rgba(0, 0, 0, 0.6)',
+  },
+  modalContent: {
+    position: 'absolute',
+    top: 0,
+    left: '50%',
+    transform: 'translate(-50%,50%)',
+    width: '475pxpx',
+    height: '350px',
+    background: 'white',
+    color: 'black',
+  },
   submit: {
     marginTop: theme.spacing(3),
   },
@@ -49,6 +71,7 @@ const useStyles = makeStyles(theme => ({
 
 const SignIn = props => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
   const user = useSelector(state => state.user, shallowEqual);
 
@@ -57,17 +80,45 @@ const SignIn = props => {
     dispatch({ type: 'SIGNIN_REQUESTING', payload: values });
   };
 
-  const { values, handleChange, handleSubmit } = useForm(signin);
+  const {
+    values,
+    handleChange,
+    handleSubmit,
+    handleResetValues,
+  } = useForm(signin);
+
+  const handleClose = () => {
+    handleResetValues();
+    dispatch({ type: 'CLEAR_ERROR' });
+    setOpen(false);
+  };
+
+  const ref = useOutsideClick(handleClose);
 
   const handleRedirect = () => {
     props.history.push('/');
   };
 
   return (
-    <div>
-      {user.successful ? (
-        <Redirect to="/in/todos" />
-      ) : (
+    <>
+      {user.error && (
+        <div
+          aria-labelledby="simple-dialog-title"
+          open={open}
+          onClose={handleClose}
+          className={classes.modal}
+        >
+          <div
+            id="simple-dialog-title"
+            ref={ref}
+            className={classes.modalContent}
+          >
+            Set backup account
+          </div>
+        </div>
+      )}
+      <div>
+        {user.successful && <Redirect to="/in/todos" />}
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
@@ -119,8 +170,8 @@ const SignIn = props => {
             </form>
           </Paper>
         </main>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 

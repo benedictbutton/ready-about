@@ -28,11 +28,6 @@ const useStyles = makeStyles(theme => ({
 const EditProfile = props => {
   const { open, setOpen, field, username, phoneNumber } = props;
 
-  // const [title, setTitle] = useState('')
-  // const [label, setLabel] = useState('')
-  // const [currentText, setCurrentText] = useState('');
-  // const [currentValue, setCurrentValue] = useState('')
-
   const [value, setValue] = useState();
 
   const classes = useStyles();

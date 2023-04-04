@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import useForm from './CustomHooks';
+import useForm from '../CustomHooks/useForm';
 // force change --> heroku
 
 const useStyles = makeStyles(theme => ({
