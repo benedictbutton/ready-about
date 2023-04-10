@@ -13,6 +13,7 @@ import SubMenu from './SubMenu';
 import useForm from '../../CustomHooks/useForm';
 import useApi from '../../CustomHooks/useApi';
 import Header from './Header';
+import History from './History';
 
 const useStyles = makeStyles(theme => ({
   grid: {
@@ -55,7 +56,6 @@ const Dictionary = () => {
     update: updateHistory,
   });
 
-  // bad practice - essentially a nested hook???
   const searchWord = () => {
     doFetch(url);
     handleResetValues();
@@ -145,9 +145,10 @@ const Dictionary = () => {
       });
     }
   }
-
+  console.log(data);
+  // <History words={data} />
   const definition = !apiData ? (
-    <h3>Loading...</h3>
+    <History user={data?.user} />
   ) : (
     <Grid container className={classes.grid} justify="flex-start">
       <Grid item xs={12} align="left">

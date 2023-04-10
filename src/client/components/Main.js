@@ -1,8 +1,8 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import EntryField from './EntryField';
+import { makeStyles } from '@material-ui/core/styles';
+import { motion } from 'framer-motion';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,7 +31,14 @@ const useStyles = makeStyles(theme => ({
 const Main = ({ appBar, main, textField }) => {
   const classes = useStyles();
   return (
-    <div className={classes.root} align="center">
+    <motion.div
+      className={classes.root}
+      align="center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+    >
       <Grid
         container
         className={classes.main}
@@ -46,7 +53,7 @@ const Main = ({ appBar, main, textField }) => {
         </Grid>
         {textField}
       </Grid>
-    </div>
+    </motion.div>
   );
 };
 

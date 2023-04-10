@@ -1,7 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -18,7 +18,10 @@ const client = new ApolloClient({
   },
 });
 
-ReactDOM.render(
+const container = document.getElementById('app');
+const root = ReactDOMClient.createRoot(container);
+
+root.render(
   <>
     <CssBaseline />
     <ApolloProvider client={client}>
@@ -29,7 +32,6 @@ ReactDOM.render(
       </Provider>
     </ApolloProvider>
   </>,
-  document.getElementById('app'),
 );
 
 module.hot.accept();

@@ -1,22 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 // material-ui
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flex: 1
+    flex: 1,
   },
   header: {
-    color: "#e8eaf6",
-    fontWeight: "bold"
+    color: '#e8eaf6',
+    fontWeight: 'bold',
   },
   button: {
-    backgroundColor: "#bbdefb"
-  }
+    backgroundColor: '#bbdefb',
+  },
 }));
 
 const Outside = () => {
@@ -44,8 +44,9 @@ const Outside = () => {
       >
         <Grid item xs={5} align="center">
           <Link
-            to={{ pathname: "/entryway", state: { selection: "signup" } }}
-            style={{ textDecoration: "none" }}
+            to="/entryway"
+            state={{ selection: 'signup' }}
+            style={{ textDecoration: 'none' }}
           >
             <Button variant="contained" className={classes.button}>
               Sign Up
@@ -54,8 +55,9 @@ const Outside = () => {
         </Grid>
         <Grid item xs={5} align="center">
           <Link
-            to={{ pathname: "/entryway", state: { selection: "signin" } }}
-            style={{ textDecoration: "none" }}
+            to="/entryway"
+            state={{ selection: 'signin' }}
+            style={{ textDecoration: 'none' }}
           >
             <Button variant="contained" className={classes.button}>
               Sign In

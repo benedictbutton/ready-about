@@ -1,34 +1,20 @@
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-  useRef,
-} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // material-ui
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Slide, Fade } from 'react-reveal';
 import {
   TransitionGroup,
   CSSTransition,
 } from 'react-transition-group';
-import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import Checkbox from '@material-ui/core/Checkbox';
-import DeleteIcon from '@material-ui/icons/Delete';
 // import Fade from '@material-ui/core/Fade';
-import Grow from '@material-ui/core/Grow';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import InputLabel from '@material-ui/core/InputLabel';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Main from '../Main';
-import Reminder from './Reminder';
-import TodosToolbar from './Toolbar';
 import useForm from '../../CustomHooks/useForm';
 import MyAppBar from '../AppBar/MyAppBar';
 import EntryField from '../EntryField';

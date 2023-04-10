@@ -78,12 +78,19 @@ module.exports = {
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg|jpe?g|pdf)$/,
-        loader: 'url-loader?limit=100000',
+        loader: 'url-loader',
+        options: {
+          limit: 1000,
+          name: 'assets/img/[name].[ext]',
+        },
       },
     ],
   },
   mode: 'none',
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    }),
     new HtmlWebpackPlugin({
       title: 'Ready About',
       template: './src/client/template.html',

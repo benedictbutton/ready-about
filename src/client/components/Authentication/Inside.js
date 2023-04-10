@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 // material-ui
 import Button from '@material-ui/core/Button';
@@ -34,12 +34,15 @@ const Inside = props => {
       {!successful ? (
         <Redirect to="/" />
       ) : (
-        <div className={classes.root}>
-          <Grid container justify="flex-end">
-            <Date />
-            <Profile handleLogOut={handleLogOut} />
-          </Grid>
-        </div>
+        <>
+          <div className={classes.root}>
+            <Grid container justify="flex-end">
+              <Date />
+              <Profile handleLogOut={handleLogOut} />
+            </Grid>
+          </div>
+          <Outlet />
+        </>
       )}
     </>
   );

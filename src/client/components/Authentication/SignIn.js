@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { Redirect, Link, withRouter } from 'react-router-dom';
+import React, { useState, useCallback, useEffect } from 'react';
+import { Redirect, Link, useNavigate } from 'react-router-dom';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 // material-ui
 import Avatar from '@material-ui/core/Avatar';
@@ -41,6 +41,13 @@ const useStyles = makeStyles(theme => ({
   button: {
     marginTop: theme.spacing(2),
   },
+  error: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+    width: '100%',
+  },
   form: {
     width: '100%', // Fix IE11 issue.
     marginTop: theme.spacing(1),
@@ -56,13 +63,15 @@ const useStyles = makeStyles(theme => ({
   },
   modalContent: {
     position: 'absolute',
-    top: 0,
+    top: '50%',
     left: '50%',
-    transform: 'translate(-50%,50%)',
-    width: '475pxpx',
-    height: '350px',
+    transform: 'translate(-50%,-70%)',
+    width: '400px',
+    height: '200px',
     background: 'white',
     color: 'black',
+    boxShadow: '16px 17px 3px -6px rgba(0,0,0,0.1)',
+    border: '1px solid black',
   },
   submit: {
     marginTop: theme.spacing(3),
@@ -71,6 +80,7 @@ const useStyles = makeStyles(theme => ({
 
 const SignIn = props => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const user = useSelector(state => state.user, shallowEqual);
@@ -99,8 +109,13 @@ const SignIn = props => {
     props.history.push('/');
   };
 
+  useEffect(() => {
+    if (user.successful) navigate('/in/todos');
+  }, [user.successful]);
+
   return (
-    <>
+    <main className={classes.layout}>
+      {/* {user.successful && <Redirect to="/in/todos" />} */}
       {user.error && (
         <div
           aria-labelledby="simple-dialog-title"
@@ -113,66 +128,61 @@ const SignIn = props => {
             ref={ref}
             className={classes.modalContent}
           >
-            Set backup account
+            <span className={classes.error}>{user.error}</span>
           </div>
         </div>
       )}
-      <div>
-        {user.successful && <Redirect to="/in/todos" />}
-        <main className={classes.layout}>
-          <Paper className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign In
-            </Typography>
-            <form className={classes.form} onSubmit={handleSubmit}>
-              <TextField
-                id="username"
-                label="Username"
-                type="text"
-                margin="normal"
-                fullWidth
-                onChange={handleChange}
-                name="username"
-                value={values.username || ''}
-              />
-              <TextField
-                id="password"
-                label="Password"
-                type="password"
-                margin="normal"
-                fullWidth
-                onChange={handleChange}
-                name="password"
-                value={values.password || ''}
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Sign In
-              </Button>
-              <Button
-                fullWidth
-                className={classes.button}
-                align="left"
-                variant="contained"
-                color="secondary"
-                onClick={handleRedirect}
-              >
-                Cancel
-              </Button>
-            </form>
-          </Paper>
-        </main>
-      </div>
-    </>
+      <Paper className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign In
+        </Typography>
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <TextField
+            id="username"
+            label="Username"
+            type="text"
+            margin="normal"
+            fullWidth
+            onChange={handleChange}
+            name="username"
+            value={values.username || ''}
+          />
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            margin="normal"
+            fullWidth
+            onChange={handleChange}
+            name="password"
+            value={values.password || ''}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign In
+          </Button>
+          <Button
+            fullWidth
+            className={classes.button}
+            align="left"
+            variant="contained"
+            color="secondary"
+            onClick={handleRedirect}
+          >
+            Cancel
+          </Button>
+        </form>
+      </Paper>
+    </main>
   );
 };
 
-export default withRouter(SignIn);
+export default SignIn;

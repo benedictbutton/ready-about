@@ -36,7 +36,6 @@ const MyAppBar = props => {
           <Toolbars
             menuSwitch={menuSwitch}
             setMenuSwitch={setMenuSwitch}
-            location={location}
             {...props}
           />
           <Menu

@@ -1,23 +1,28 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Dictionary from './components/Dictionary/Dictionary';
 import Entryway from './components/Authentication/Entryway';
 import Inside from './components/Authentication/Inside';
 import Outside from './components/Authentication/Outside';
 import Todos from './components/Todos/Todos';
 import Scripts from './components/Scripts/Scripts';
+import { AnimatePresence } from 'framer-motion';
 
 const App = () => {
+  const location = useLocation();
   return (
     <main className="App App-header home">
-      <Route exact path="/" component={Outside} />
-      <Route path="/in" component={Inside} />
-      <Switch>
-        <Route path="/entryway" component={Entryway} />
-        <Route path="/in/todos" component={Todos} />
-        <Route path="/in/dictionary" component={Dictionary} />
-        <Route path="/in/scripts" component={Scripts} />
-      </Switch>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route exact path="/" element={<Outside />} />
+          <Route path="/entryway" element={<Entryway />} />
+          <Route path="in" element={<Inside />}>
+            <Route path="todos" element={<Todos />} />
+            <Route path="dictionary" element={<Dictionary />} />
+            <Route path="scripts" element={<Scripts />} />
+          </Route>
+        </Routes>
+      </AnimatePresence>
     </main>
   );
 };
