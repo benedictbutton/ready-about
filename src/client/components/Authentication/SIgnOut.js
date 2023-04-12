@@ -15,12 +15,12 @@ const useStyles = makeStyles(() => ({
 const SignOut = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const signout = () => {
+  const handleSignout = () => {
     dispatch({ type: 'SIGN_OUT' });
   };
 
   return (
-    <Grid item xs={5} onClick={signout}>
+    <Grid item xs={5} onClick={handleSignout}>
       <Typography
         className={classes.type}
         variant="body1"
