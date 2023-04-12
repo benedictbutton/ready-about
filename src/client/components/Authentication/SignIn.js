@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { Redirect, Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 // material-ui
 import Avatar from '@material-ui/core/Avatar';

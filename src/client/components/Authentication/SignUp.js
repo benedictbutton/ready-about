@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Link, withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 // material-ui
 import Avatar from '@material-ui/core/Avatar';

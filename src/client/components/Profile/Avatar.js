@@ -23,7 +23,7 @@ const MyAvatar = ({ userImage, username }) => {
         />
       ) : (
         <Avatar className={classes.bigAvatar}>
-          {username[0].toUpperCase()}
+          {username[0]?.toUpperCase()}
         </Avatar>
       )}
     </Grid>

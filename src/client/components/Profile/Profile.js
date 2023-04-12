@@ -1,29 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import SignOut from '../Authentication/SignOut';
 // material-ui
-import AddIcon from '@material-ui/icons/Add';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import ClearIcon from '@material-ui/icons/Clear';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
 import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
 import MyAvatar from './Avatar';
 import AvatarField from './AvatarField';
-import useForm from '../../CustomHooks/useForm';
 import EditProfile from './EditProfile';
 import Field from './Field';
 
@@ -32,21 +18,13 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
     backgroundColor: props =>
       props.keepOpen ? '#191970' : 'transparent',
-    // '&:hover': {
-    //   backgroundColor: '#191970',
-    // },
     padding: theme.spacing(3),
     position: 'absolute',
     zIndex: 2000,
     minWidth: 300,
   },
-  // paperHover: {
-  //   backgroundColor: props =>
-  //     props.keepOpen ? '#191970' : 'transparent',
-  // },
   grid: {
     flex: 1,
-    // margin: theme.spacing(2),
   },
   button: {
     borderColor: 'white',
@@ -62,9 +40,6 @@ const useStyles = makeStyles(theme => ({
     borderWidth: 1,
     margin: theme.spacing(0, 3),
   },
-  type: {
-    color: 'white',
-  },
   profileType: { fontSize: 20, color: 'white' },
 }));
 
@@ -75,11 +50,8 @@ const MyPaper = props => {
 };
 
 const Profile = props => {
-  const { handleLogOut } = props;
-
   const file = useRef(null);
   const [ignore, setIgnore] = useState(false);
-  const [update, setUpdate] = useState(false);
   const [profile, setProfile] = useState(false);
   const [picture, setPicture] = useState();
   const [open, setOpen] = useState(false);
@@ -87,13 +59,13 @@ const Profile = props => {
 
   const classes = useStyles();
 
-  const { id, username, avatar, phoneNumber } = useSelector(
+  const { username, avatar, phoneNumber } = useSelector(
     state => state.user,
   );
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if (ignore === false) return;
+    if (!ignore) return;
     const fetchData = async () => {
       setIgnore(false);
       try {
@@ -213,23 +185,7 @@ const Profile = props => {
                   setProfile={setProfile}
                   setField={setField}
                 />
-                <Grid item xs={5}>
-                  <Typography
-                    className={classes.type}
-                    variant="body1"
-                    onClick={handleLogOut}
-                  >
-                    <a
-                      href="#"
-                      style={{
-                        color: 'inherit',
-                        textDecoration: 'none',
-                      }}
-                    >
-                      Log Out
-                    </a>
-                  </Typography>
-                </Grid>
+                <SignOut />
               </Grid>
             </Collapse>
           </Grid>
@@ -248,85 +204,3 @@ const Profile = props => {
 };
 
 export default Profile;
-
-// {profile ? (
-//   <>
-//     <Grid item xs={12} align="left">
-//       <Divider className={classes.divider} align="center" />
-//     </Grid>
-//     <Grid item xs={5}>
-//       <Typography className={classes.type} variant="body1">
-//         Avatar
-//       </Typography>
-//     </Grid>
-//     <Grid item xs={5}>
-//       <AddIcon className={classes.type} />
-//     </Grid>
-//   </>
-// ) : null}
-
-// <Popper
-//   open={open}
-//   anchorEl={anchorRef.current}
-//   role={undefined}
-//   transition
-//   disablePortal
-// >
-//   {({ TransitionProps, placement }) => (
-//     <Grow
-//       {...TransitionProps}
-//       style={{
-//         transformOrigin: 'bottom',
-//       }}
-//     >
-//       <ClickAwayListener onClickAway={handleClose}>
-//         <MenuList
-//           autoFocusItem={open}
-//           id="menu-list-grow"
-//           onKeyDown={handleListKeyDown}
-//         >
-//           <MenuItem onClick={handleClose}>
-//             <Typography
-//               className={classes.type}
-//               variant="body1"
-//             >
-//               Avatar
-//             </Typography>
-//             <AddIcon className={classes.type} />
-//           </MenuItem>
-//           <MenuItem onClick={handleClose}>Log Out</MenuItem>
-//         </MenuList>
-//       </ClickAwayListener>
-//     </Grow>
-//   )}
-// </Popper>
-
-// const handleToggle = () => {
-//   setOpen(prevOpen => !prevOpen);
-// };
-
-// const handleClose = event => {
-//   if (
-//     anchorRef.current &&
-//     anchorRef.current.contains(event.target)
-//   ) {
-//     return;
-//   }
-//   setOpen(false);
-// };
-//
-// function handleListKeyDown(event) {
-//   if (event.key === 'Tab') {
-//     event.preventDefault();
-//     setOpen(false);
-//   }
-// }
-
-// const prevOpen = React.useRef(open);
-// useEffect(() => {
-//   if (prevOpen.current === true && open === false) {
-//     anchorRef.current.focus();
-//   }
-//
-//   prevOpen.current = open;
-// }, [open]);

@@ -13,9 +13,9 @@ const App = () => {
   return (
     <main className="App App-header home">
       <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
+        <Routes location={location} key={location?.pathname}>
           <Route exact path="/" element={<Outside />} />
-          <Route path="/entryway" element={<Entryway />} />
+          <Route path="entryway" element={<Entryway />} />
           <Route path="in" element={<Inside />}>
             <Route path="todos" element={<Todos />} />
             <Route path="dictionary" element={<Dictionary />} />
