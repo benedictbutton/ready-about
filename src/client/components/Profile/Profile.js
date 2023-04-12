@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import SignOut from '../Authentication/SignOut';
+import LogOut from '../Authentication/LogOut';
 // material-ui
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -185,7 +185,7 @@ const Profile = props => {
                   setProfile={setProfile}
                   setField={setField}
                 />
-                <SignOut />
+                <LogOut />
               </Grid>
             </Collapse>
           </Grid>
