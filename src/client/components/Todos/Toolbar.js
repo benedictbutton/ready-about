@@ -1,25 +1,18 @@
 import React, { useState, useCallback } from 'react';
 // material-ui
 import clsx from 'clsx';
-import {
-  lighten,
-  makeStyles,
-  styled,
-} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import FlipToFrontIcon from '@material-ui/icons/FlipToFront';
 import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Toggle from '../AppBar/Toggle';
 import EditTodo from './EditTodo';
-import EditProfile from '../Profile/EditProfile';
 import Reminder from './Reminder';
-// import withAppBar from '../AppBar/withAppBar';
 
 const useStyles = makeStyles(theme => ({
   root: {

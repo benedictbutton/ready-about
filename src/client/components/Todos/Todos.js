@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import MyList from '../MyList';
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
-import { Slide, Fade } from 'react-reveal';
 import {
   TransitionGroup,
   CSSTransition,
@@ -38,14 +38,10 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       elevation: 24,
     },
-    // position: 'absolute',
   },
   list: {
     flex: 1,
-    // position: 'relative',
-    // overflowY: 'auto',
     height: '100%',
-    // paddingBottom: theme.spacing(5),
   },
   container: {
     flex: 1,
@@ -60,13 +56,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// '0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12)'
-
 const Todos = props => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-
   const lastItem = useRef(null);
+  const dispatch = useDispatch();
 
   const [trigger, setTrigger] = useState(true);
 
@@ -108,14 +101,6 @@ const Todos = props => {
     handleKeyDown,
   } = useForm();
 
-  const [checked, setChecked] = React.useState([0]);
-
-  const isSelected = id => selected.indexOf(id) !== -1;
-
-  useEffect(() => {
-    dispatch({ type: 'TODOS_INDEX_REQUESTING' });
-  }, [dispatch]);
-
   useEffect(() => {
     window.addEventListener('keyup', handleKeyUp);
     return () => window.removeEventListener('keyup', handleKeyUp);
@@ -126,45 +111,9 @@ const Todos = props => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
 
-  // <CSSTransition timeout={500} key={el._id}>
-
-  const todosList = todos.map(el => {
-    const labelId = `checkbox-list-label-${el._id}`;
-    const isItemSelected = isSelected(el._id);
-
-    return (
-      <CSSTransition key={el._id} classNames="item" timeout={500}>
-        <ListItem
-          className={isItemSelected ? `${classes.paper}` : null}
-          role={undefined}
-          dense
-          button
-          onClick={event => handleClick(event, el._id)}
-        >
-          <ListItemIcon>
-            <Checkbox
-              checked={isItemSelected}
-              inputProps={{ 'aria-labelledby': labelId }}
-            />
-          </ListItemIcon>
-          <ListItemText
-            id={labelId}
-            primary={el.item}
-            style={{ wordWrap: 'break-word' }}
-            primaryTypographyProps={{
-              variant: 'h6',
-            }}
-          />
-        </ListItem>
-      </CSSTransition>
-    );
-  });
-
-  // const groupProps = {
-  //   appear: false,
-  //   enter: true,
-  //   exit: true,
-  // };
+  useEffect(() => {
+    dispatch({ type: 'TODOS_INDEX_REQUESTING' });
+  }, [dispatch]);
 
   return (
     <Main
@@ -179,14 +128,12 @@ const Todos = props => {
         />
       }
       main={
-        <List dense className={classes.list}>
-          <TransitionGroup>{todosList}</TransitionGroup>
-          <span
-            className={classes.scroll}
-            ref={el => (lastItem.current = el)}
-            aria-hidden="true"
-          />
-        </List>
+        <MyList
+          listItems={todos}
+          lastItem={el => (lastItem.current = el)}
+          selected={selected}
+          handleClick={handleClick}
+        />
       }
       textField={
         <Grid item xs={11} align="center">

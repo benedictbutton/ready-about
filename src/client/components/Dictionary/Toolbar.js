@@ -16,8 +16,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DictionaryToolbar = ({ menuSwitch, setMenuSwitch }) => {
+const DictionaryToolbar = ({
+  menuSwitch,
+  setMenuSwitch,
+  numSelected,
+  numOfTodos,
+  onSelectAllClick,
+  deleteTodos,
+  selected,
+  handleResetSelected,
+}) => {
   const classes = useStyles();
+
   return (
     <Toolbar className={classes.root}>
       <Typography

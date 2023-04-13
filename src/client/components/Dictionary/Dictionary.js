@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import { useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Main from '../Main';
-import DictionaryToolbar from './Toolbar';
 import MyAppBar from '../AppBar/MyAppBar';
 import EntryField from './EntryField';
 import SubMenu from './SubMenu';
@@ -34,6 +32,7 @@ const GET_HISTORY = gql`
   query User {
     user {
       wordsHistory {
+        _id
         text
       }
     }
@@ -50,11 +49,31 @@ const ADD_HISTORY = gql`
 
 const Dictionary = () => {
   const classes = useStyles();
+  const lastItem = useRef(null);
   const [activeLink, setActiveLink] = useState(false);
   const { loading, error, data } = useQuery(GET_HISTORY);
   const [addHistory, { client }] = useMutation(ADD_HISTORY, {
     update: updateHistory,
   });
+
+  const {
+    selected,
+    handleClick,
+    handleSelectAllClick,
+    handleResetSelected,
+    handleKeyUp,
+    handleKeyDown,
+  } = useForm();
+
+  useEffect(() => {
+    window.addEventListener('keyup', handleKeyUp);
+    return () => window.removeEventListener('keyup', handleKeyUp);
+  }, [handleKeyUp]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
 
   const searchWord = () => {
     doFetch(url);
@@ -87,6 +106,8 @@ const Dictionary = () => {
     });
 
     const newWord = apiData[0].meta.id;
+    if (newWord[newWord.length - 2] === ':')
+      newWord = newWord.slice(0, -2);
     client.writeQuery({
       query: GET_HISTORY,
       data: { history: [newWord, ...wordsHistory] },
@@ -95,15 +116,17 @@ const Dictionary = () => {
 
   useEffect(() => {
     if (!apiData) return;
-    if (apiData[0].meta)
-      addHistory({ variables: { text: apiData[0].meta.id } });
+    if (apiData[0].meta) {
+      let word = apiData[0].meta.id;
+      if (word[word.length - 2] === ':') word = word.slice(0, -2);
+      addHistory({ variables: { text: word } });
+    }
   }, [addHistory, apiData]);
 
   let senses = [];
   if (apiData) {
     if (apiData[0] instanceof Object) {
       senses = apiData.map((meta, idx) => {
-        // if (!meta.hom) return null;
         if (!meta.fl) return null;
         return (
           <>
@@ -145,10 +168,14 @@ const Dictionary = () => {
       });
     }
   }
-  console.log(data);
-  // <History words={data} />
+
   const definition = !apiData ? (
-    <History user={data?.user} />
+    <History
+      user={data?.user}
+      lastItem={el => (lastItem.current = el)}
+      selected={selected}
+      handleClick={handleClick}
+    />
   ) : (
     <Grid container className={classes.grid} justify="flex-start">
       <Grid item xs={12} align="left">
@@ -160,7 +187,16 @@ const Dictionary = () => {
 
   return (
     <Main
-      appBar={<MyAppBar />}
+      appBar={
+        <MyAppBar
+          numSelected={selected.length}
+          numOfWords={data?.user?.wordsHistory?.length}
+          onSelectAllClick={handleSelectAllClick}
+          // deleteTodos={deleteTodos}
+          selected={selected}
+          handleResetSelected={handleResetSelected}
+        />
+      }
       main={definition}
       textField={
         <Grid container justify="space-around" alignItems="center">

@@ -12,6 +12,7 @@ module.exports = gql`
   }
 
   type Word {
+    _id: ID!
     text: String!
     createdAt: Date!
   }

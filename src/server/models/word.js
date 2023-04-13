@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const WordSchema = new mongoose.Schema({
+  id: { type: String },
   text: {
     type: String,
   },

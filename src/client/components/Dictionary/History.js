@@ -1,18 +1,25 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import MyList from '../MyList';
 import { Grid, Typography } from '@material-ui/core';
 
-const History = ({ user }) => {
-  const words = user?.wordsHistory?.map(word => (
-    <Typography variant="body1" align="left" key={uuidv4()}>
-      {word?.text}
-    </Typography>
-  ));
+const History = ({ user, lastItem, selected, handleClick }) => {
+  const words = user?.wordsHistory.map(word => ({
+    _id: word._id,
+    item: word.text,
+  }));
 
   return (
-    <Grid item xs={12}>
-      {words || <h1>Loading...</h1>}
-    </Grid>
+    <>
+      {(words?.length && (
+        <MyList
+          listItems={words}
+          lastItem={lastItem}
+          selected={selected}
+          handleClick={handleClick}
+        />
+      )) || <h1>Loading...</h1>}
+    </>
   );
 };
 
