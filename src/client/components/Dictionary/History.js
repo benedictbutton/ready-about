@@ -15,18 +15,5 @@ const History = ({ user }) => {
     </Grid>
   );
 };
-//   <>
-//     {words !== undefined && (
-//       <Grid item xs={12}>
-//         {words.map(word => (
-//           <Typography variant="body1" align="left">
-//             {word}
-//           </Typography>
-//         ))}
-//       </Grid>
-//     )}
-//   </>
 
 export default History;
-
-// className={classes.fl}
