@@ -150,17 +150,11 @@ const getMe = async req => {
   // }
 };
 
-const corsOptions = {
-  origin: process.env.ORIGIN,
-  credentials: true,
-};
-
 const server = new ApolloServer({
   // Pass the ApolloGateway to the ApolloServer constructor
   // gateway,
   typeDefs: schema,
   resolvers,
-  cors: cors(corsOptions),
   // Disable subscriptions (not currently supported with ApolloGateway)
   subscriptions: false,
   formatError: error => {
