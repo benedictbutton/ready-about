@@ -12,7 +12,7 @@ import './index.css';
 import { store } from './redux/store/configureStore';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:8080/graphql',
+  uri: process.env.ORIGIN,
   headers: {
     Authorization: `Bearer ${sessionStorage.jwt}`,
   },
