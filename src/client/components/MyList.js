@@ -13,10 +13,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    boxShadow:
-      '10px -5px 5px rgba(0,0,0,0.3), inset 3px -5px 5px rgba(0,0,0,0.3)',
+    boxShadow: '-17px 17px 2px 0px rgba(0,0,0,0.1)',
+    left: '3%',
+    background: 'white',
+    paddingTop: 0,
+    paddingBottom: 0,
     '&:hover': {
-      elevation: 24,
+      background: 'white',
     },
   },
   list: {
@@ -25,7 +28,6 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     flex: 1,
-    // flexWrap: "wrap"
   },
   multi: {
     display: 'flexWrap',

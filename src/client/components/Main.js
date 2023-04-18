@@ -8,8 +8,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     flex: 1,
     width: '100%',
-    // height: '80vh',
-    // padding: theme.spacing(3, 2)
   },
   main: {
     flex: 1,
@@ -24,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     height: 500,
     positiion: 'relative',
-    overflowY: 'auto',
+    // overflowY: 'auto',
   },
 }));
 
