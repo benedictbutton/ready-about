@@ -1,3 +1,10 @@
+// const mongoose = require('mongoose');
+
+// String.prototype.toObjectId = function() {
+//   var ObjectId = require('mongoose').Types.ObjectId;
+//   return new ObjectId(this.toString());
+// };
+
 module.exports = {
   Query: {
     users: async (parent, args, { me, models }) => {
@@ -48,6 +55,17 @@ module.exports = {
           { upsert: true, new: true },
         );
         return word;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    deleteWord: async (parent, { _id }, { me, models }) => {
+      try {
+        const user = await models.User.findById(me.id);
+        await user.words.history.pull(_id);
+        await user.save();
+
+        return user.words.history;
       } catch (error) {
         console.log(error);
       }

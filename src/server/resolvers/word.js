@@ -17,10 +17,9 @@ module.exports = {
         throw new Error('My custom error message');
       }
     },
-
-    deleteWord: async (parent, { text }, { models }) => {
-      return await models.Word.destroy({ where: { text } });
-    },
+    // deleteWord: async (parent, { text }, { models }) => {
+    //   return await models.Word.destroy({ where: { text } });
+    // },
   },
 
   // __resolverReference

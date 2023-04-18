@@ -31,9 +31,15 @@ module.exports = {
     // instead of 'warning'
     clientLogLevel: 'silent',
   },
-  // devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-source-map',
   module: {
     rules: [
+      {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false,
+        },
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -90,6 +96,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.ORIGIN': JSON.stringify(process.env.ORIGIN),
     }),
     new HtmlWebpackPlugin({
       title: 'Ready About',

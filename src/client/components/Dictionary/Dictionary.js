@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  gql,
+  useQuery,
+  useMutation,
+  useApolloClient,
+} from '@apollo/client';
 import Main from '../Main';
 import MyAppBar from '../AppBar/MyAppBar';
 import EntryField from './EntryField';
@@ -12,6 +13,10 @@ import useForm from '../../CustomHooks/useForm';
 import useApi from '../../CustomHooks/useApi';
 import Header from './Header';
 import History from './History';
+// material-ui
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
   grid: {
@@ -47,13 +52,28 @@ const ADD_HISTORY = gql`
   }
 `;
 
+const DELETE_WORD = gql`
+  mutation DeleteWord($_id: ID!) {
+    deleteWord(_id: $_id) {
+      wordsHistory {
+        _id
+        text
+      }
+    }
+  }
+`;
+
 const Dictionary = () => {
   const classes = useStyles();
   const lastItem = useRef(null);
+  const [openHistory, setOpenHistory] = useState(true);
   const [activeLink, setActiveLink] = useState(false);
   const { loading, error, data } = useQuery(GET_HISTORY);
   const [addHistory, { client }] = useMutation(ADD_HISTORY, {
-    update: updateHistory,
+    refetchQueries: [{ query: GET_HISTORY }],
+  });
+  const [deleteWord] = useMutation(DELETE_WORD, {
+    refetchQueries: [{ query: GET_HISTORY }],
   });
 
   const {
@@ -76,6 +96,7 @@ const Dictionary = () => {
   }, [handleKeyDown]);
 
   const searchWord = () => {
+    setOpenHistory(false);
     doFetch(url);
     handleResetValues();
   };
@@ -100,19 +121,19 @@ const Dictionary = () => {
     headers,
   );
 
-  const updateHistory = (client, { data }) => {
-    const { user: wordsHistory } = client.readQuery({
-      query: GET_HISTORY,
-    });
+  // const updateHistory = (client, { data }) => {
+  //   const { user: wordsHistory } = client.readQuery({
+  //     query: GET_HISTORY,
+  //   });
 
-    const newWord = apiData[0].meta.id;
-    if (newWord[newWord.length - 2] === ':')
-      newWord = newWord.slice(0, -2);
-    client.writeQuery({
-      query: GET_HISTORY,
-      data: { history: [newWord, ...wordsHistory] },
-    });
-  };
+  //   const newWord = apiData[0].meta.id;
+  //   if (newWord[newWord.length - 2] === ':')
+  //     newWord = newWord.slice(0, -2);
+  //   client.writeQuery({
+  //     query: GET_HISTORY,
+  //     data: { history: [newWord, ...wordsHistory] },
+  //   });
+  // };
 
   useEffect(() => {
     if (!apiData) return;
@@ -169,21 +190,22 @@ const Dictionary = () => {
     }
   }
 
-  const definition = !apiData ? (
-    <History
-      user={data?.user}
-      lastItem={el => (lastItem.current = el)}
-      selected={selected}
-      handleClick={handleClick}
-    />
-  ) : (
-    <Grid container className={classes.grid} justify="flex-start">
-      <Grid item xs={12} align="left">
-        <Header apiData={apiData} />
+  const definition =
+    !apiData || openHistory ? (
+      <History
+        user={data?.user}
+        lastItem={el => (lastItem.current = el)}
+        selected={selected}
+        handleClick={handleClick}
+      />
+    ) : (
+      <Grid container className={classes.grid} justify="flex-start">
+        <Grid item xs={12} align="left">
+          <Header apiData={apiData} />
+        </Grid>
+        {senses}
       </Grid>
-      {senses}
-    </Grid>
-  );
+    );
 
   return (
     <Main
@@ -191,8 +213,9 @@ const Dictionary = () => {
         <MyAppBar
           numSelected={selected.length}
           numOfWords={data?.user?.wordsHistory?.length}
+          words={data?.user?.wordsHistory}
           onSelectAllClick={handleSelectAllClick}
-          // deleteTodos={deleteTodos}
+          deleteWord={deleteWord}
           selected={selected}
           handleResetSelected={handleResetSelected}
         />
@@ -206,6 +229,7 @@ const Dictionary = () => {
               setActiveLink={setActiveLink}
               topMenuOption="Dictionary"
               bottomMenuOption="Thesaurus"
+              doFetch={doFetch}
             />
           </Grid>
           <Grid item xs={4}>
@@ -221,6 +245,7 @@ const Dictionary = () => {
               setActiveLink={setActiveLink}
               topMenuOption="History"
               bottomMenuOption="Favorites"
+              setOpenHistory={setOpenHistory}
             />
           </Grid>
         </Grid>

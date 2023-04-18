@@ -1,7 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import MyList from '../MyList';
-import { Grid, Typography } from '@material-ui/core';
 
 const History = ({ user, lastItem, selected, handleClick }) => {
   const words = user?.wordsHistory.map(word => ({

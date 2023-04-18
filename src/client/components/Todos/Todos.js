@@ -121,6 +121,7 @@ const Todos = props => {
         <MyAppBar
           numSelected={selected.length}
           numOfTodos={todos.length}
+          todos={todos}
           onSelectAllClick={handleSelectAllClick}
           deleteTodos={deleteTodos}
           selected={selected}

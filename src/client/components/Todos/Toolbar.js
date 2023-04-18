@@ -40,6 +40,7 @@ const TodosToolbar = ({
   setMenuSwitch,
   numSelected,
   numOfTodos,
+  todos,
   onSelectAllClick,
   deleteTodos,
   selected,
@@ -69,7 +70,7 @@ const TodosToolbar = ({
         className={classes.checkbox}
         indeterminate={numSelected > 0 && numSelected < numOfTodos}
         checked={numSelected === numOfTodos}
-        onChange={onSelectAllClick}
+        onChange={e => onSelectAllClick(todos, e)}
         inputProps={{ 'aria-label': 'select all todos' }}
       />
       <EditTodo
@@ -78,11 +79,12 @@ const TodosToolbar = ({
         editOpen={editOpen}
         handleEditClose={handleEditClose}
       />
-      {numSelected > 0 && !open ? (
+      {numSelected > 0 && !open && (
         <Typography className={classes.title} variant="subtitle1">
           {numSelected} selected
         </Typography>
-      ) : open ? (
+      )}
+      {open && (
         <Typography className={classes.title} variant="subtitle1">
           <Reminder
             open={open}
@@ -91,7 +93,8 @@ const TodosToolbar = ({
             handleResetSelected={handleResetSelected}
           />
         </Typography>
-      ) : (
+      )}
+      {!numSelected && (
         <Typography
           className={classes.title}
           variant="h4"

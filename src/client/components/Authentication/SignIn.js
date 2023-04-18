@@ -105,7 +105,9 @@ const SignIn = props => {
 
   const ref = useOutsideClick(handleClose);
 
-  const handleRedirect = () => {
+  const handleRedirect = event => {
+    event.preventDefault();
+    console.log('test');
     props.history.push('/');
   };
 
@@ -175,7 +177,8 @@ const SignIn = props => {
             align="left"
             variant="contained"
             color="secondary"
-            onClick={handleRedirect}
+            disabled={false}
+            onClick={event => handleRedirect(event)}
           >
             Cancel
           </Button>

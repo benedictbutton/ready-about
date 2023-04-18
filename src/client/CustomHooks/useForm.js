@@ -72,9 +72,9 @@ const useForm = callback => {
     }
   };
 
-  const handleSelectAllClick = event => {
+  const handleSelectAllClick = (list, event) => {
     if (event.target.checked) {
-      const newSelecteds = todos.map(el => el._id);
+      const newSelecteds = list.map(el => el._id);
       setSelected(newSelecteds);
       return;
     }

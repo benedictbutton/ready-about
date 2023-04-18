@@ -1,5 +1,5 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 // material-ui
 import Avatar from '@material-ui/core/Avatar';
@@ -49,10 +49,12 @@ const useStyles = makeStyles(theme => ({
 
 const SignUp = props => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const user = useSelector(state => state.user, shallowEqual);
 
-  /* I could pass dispatch through useSignUp as the callback and move signup to CustomHooks, but I think its better to source the dispatch inside the component using it for reference purposes */
+  /* I could pass dispatch through useSignUp as the callback and move signup to CustomHooks, 
+  but I think its better to source the dispatch inside the component using it for reference purposes */
   const dispatch = useDispatch();
   const signup = () => {
     dispatch({ type: 'SIGNUP_REQUESTING', payload: values });
@@ -60,72 +62,64 @@ const SignUp = props => {
 
   const { values, handleChange, handleSubmit } = useForm(signup);
 
-  const handleRedirect = () => {
-    props.history.push('/');
-  };
+  useEffect(() => {
+    if (user.successful) navigate('/in/todos');
+  }, [user.successful]);
 
   // const MyLink = props => <Link to="/" {...props} />;
 
   return (
-    <div>
-      {user.successful ? (
-        <Redirect to="/in/todos" />
-      ) : (
-        <main className={classes.layout}>
-          <Paper className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign Up
-            </Typography>
-            <form className={classes.form} onSubmit={handleSubmit}>
-              <TextField
-                id="username"
-                label="Username"
-                type="text"
-                margin="normal"
-                fullWidth
-                onChange={handleChange}
-                name="username"
-                value={values.username || ''}
-              />
-              <TextField
-                id="password"
-                label="Password"
-                type="password"
-                margin="normal"
-                fullWidth
-                onChange={handleChange}
-                name="password"
-                value={values.password || ''}
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Sign up
-              </Button>
-              <Button
-                fullWidth
-                className={classes.button}
-                align="left"
-                variant="contained"
-                color="secondary"
-              >
-                Cancel
-              </Button>
-            </form>
-          </Paper>
-        </main>
-      )}
-    </div>
+    <main className={classes.layout}>
+      <Paper className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign Up
+        </Typography>
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <TextField
+            id="username"
+            label="Username"
+            type="text"
+            margin="normal"
+            fullWidth
+            onChange={handleChange}
+            name="username"
+            value={values.username || ''}
+          />
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            margin="normal"
+            fullWidth
+            onChange={handleChange}
+            name="password"
+            value={values.password || ''}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign up
+          </Button>
+          <Button
+            fullWidth
+            className={classes.button}
+            align="left"
+            variant="contained"
+            color="secondary"
+          >
+            Cancel
+          </Button>
+        </form>
+      </Paper>
+    </main>
   );
 };
 
 export default SignUp;
-
-// component={MyLink}

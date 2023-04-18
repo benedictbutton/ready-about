@@ -8,7 +8,6 @@ module.exports = gql`
 
   extend type Mutation {
     createWord(text: String!): Word!
-    deleteWord(text: String!): Boolean!
   }
 
   type Word {
@@ -21,4 +20,5 @@ module.exports = gql`
 // extend type User @key(fields: "id") {
 //   id: ID! @external
 //   words: [Word]
-//
+
+//deleteWord(text: String!): Boolean!

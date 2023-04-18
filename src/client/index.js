@@ -3,8 +3,11 @@ import 'regenerator-runtime/runtime';
 import React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from '@apollo/react-hooks';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+} from '@apollo/client';
 import { Provider } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import App from './App';
@@ -16,6 +19,7 @@ const client = new ApolloClient({
   headers: {
     Authorization: `Bearer ${sessionStorage.jwt}`,
   },
+  cache: new InMemoryCache(),
 });
 
 const container = document.getElementById('app');

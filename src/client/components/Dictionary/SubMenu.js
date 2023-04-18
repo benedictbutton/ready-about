@@ -41,6 +41,7 @@ const SubMenu = props => {
     setActiveLink,
     topMenuOption,
     bottomMenuOption,
+    setOpenHistory,
   } = props;
 
   return (
@@ -71,7 +72,8 @@ const SubMenu = props => {
         <Typography
           variant="h4"
           className={classes.typeBottom}
-          onClick={() => setActiveLink(!activeLink)}
+          // onClick={() => setActiveLink(!activeLink)}
+          onClick={() => setOpenHistory(true)}
         >
           {bottomMenuOption}
         </Typography>

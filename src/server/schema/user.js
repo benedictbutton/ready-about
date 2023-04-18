@@ -10,6 +10,7 @@ module.exports = gql`
   extend type Mutation {
     editUser(id: ID!, edit: String!, editProp: String!): Edits!
     addHistory(text: String!): Word!
+    deleteWord(_id: ID!, text: String): User
   }
 
   type Edits {
