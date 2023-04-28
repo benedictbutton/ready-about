@@ -38,7 +38,7 @@ const DictionaryToolbar = ({
   numOfWords,
   words,
   onSelectAllClick,
-  deleteWord,
+  deleteWords,
   selected,
   handleResetSelected,
 }) => {
@@ -82,11 +82,12 @@ const DictionaryToolbar = ({
         <Tooltip title="Delete">
           <IconButton
             aria-label="delete"
-            onClick={() =>
-              deleteWord({
-                variables: { _id: selected[0] },
-              })
-            }
+            onClick={() => {
+              deleteWords({
+                variables: { _id: selected },
+              });
+              handleResetSelected();
+            }}
           >
             <DeleteIcon color="secondary" />
           </IconButton>

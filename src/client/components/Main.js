@@ -21,12 +21,11 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     height: 500,
-    positiion: 'relative',
-    // overflowY: 'auto',
+    position: 'relative',
   },
 }));
 
-const Main = ({ appBar, main, textField }) => {
+const Main = ({ appBar, main, textField, pagination }) => {
   const classes = useStyles();
   return (
     <motion.div
@@ -49,6 +48,7 @@ const Main = ({ appBar, main, textField }) => {
             {main}
           </Paper>
         </Grid>
+        {pagination}
         {textField}
       </Grid>
     </motion.div>

@@ -1,9 +1,9 @@
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-// String.prototype.toObjectId = function() {
-//   var ObjectId = require('mongoose').Types.ObjectId;
-//   return new ObjectId(this.toString());
-// };
+String.prototype.toObjectId = function() {
+  var ObjectId = require('mongoose').Types.ObjectId;
+  return new ObjectId(this.toString());
+};
 
 module.exports = {
   Query: {
@@ -59,12 +59,15 @@ module.exports = {
         console.log(error);
       }
     },
-    deleteWord: async (parent, { _id }, { me, models }) => {
+    deleteWords: async (parent, { _id }, { me, models }) => {
+      console.log('test: ', _id);
       try {
         const user = await models.User.findById(me.id);
-        await user.words.history.pull(_id);
-        await user.save();
-
+        await models.User.findOneAndUpdate(
+          { _id: user.id },
+          { $pullAll: { 'words.history': _id } },
+          { new: false, upsert: true },
+        );
         return user.words.history;
       } catch (error) {
         console.log(error);

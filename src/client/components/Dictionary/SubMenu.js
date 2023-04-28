@@ -45,57 +45,17 @@ const SubMenu = props => {
   } = props;
 
   return (
-    <>
-      <CSSTransition classNames="link" in={activeLink} timeout={3000}>
-        <Typography
-          variant="h4"
-          onClick={() => setActiveLink(!activeLink)}
-        >
-          {topMenuOption}
-        </Typography>
-      </CSSTransition>
-      <CSSTransition
-        classNames="link"
-        in={!activeLink}
-        timeout={3000}
+    <CSSTransition classNames="link" in={!activeLink} timeout={500}>
+      <Typography
+        variant="h4"
+        className={classes.typeBottom}
+        // onClick={() => setActiveLink(!activeLink)}
+        onClick={() => setOpenHistory(true)}
       >
-        <Typography
-          variant="h4"
-          className={classes.test}
-          onClick={() => setActiveLink(!activeLink)}
-        >
-          {topMenuOption}
-        </Typography>
-      </CSSTransition>
-
-      <CSSTransition classNames="link" in={!activeLink} timeout={500}>
-        <Typography
-          variant="h4"
-          className={classes.typeBottom}
-          // onClick={() => setActiveLink(!activeLink)}
-          onClick={() => setOpenHistory(true)}
-        >
-          {bottomMenuOption}
-        </Typography>
-      </CSSTransition>
-    </>
+        {bottomMenuOption}
+      </Typography>
+    </CSSTransition>
   );
 };
 
 export default SubMenu;
-
-// : (
-//   <CSSTransition
-//     classNames="link"
-//     in={!activeLink}
-//     timeout={3000}
-//   >
-//     <Typography
-//       variant="h4"
-//       className={classes.typeTopTwo}
-//       onClick={() => setActiveLink(!activeLink)}
-//     >
-//       {topMenuOption}
-//     </Typography>
-//   </CSSTransition>
-// )}

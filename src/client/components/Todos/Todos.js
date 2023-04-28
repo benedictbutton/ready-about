@@ -1,23 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import MyList from '../MyList';
-// material-ui
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  TransitionGroup,
-  CSSTransition,
-} from 'react-transition-group';
-import Checkbox from '@material-ui/core/Checkbox';
-// import Fade from '@material-ui/core/Fade';
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Main from '../Main';
+import ReactPaginate from 'react-paginate';
 import useForm from '../../CustomHooks/useForm';
+import usePagination from '../../CustomHooks/usePagination';
+import MyList from '../MyList';
+import Main from '../Main';
 import MyAppBar from '../AppBar/MyAppBar';
 import EntryField from '../EntryField';
+// material-ui
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -101,6 +93,10 @@ const Todos = props => {
     handleKeyDown,
   } = useForm();
 
+  const { itemsPerPage, currentItems, paginate } = usePagination(
+    todos,
+  );
+
   useEffect(() => {
     window.addEventListener('keyup', handleKeyUp);
     return () => window.removeEventListener('keyup', handleKeyUp);
@@ -130,7 +126,7 @@ const Todos = props => {
       }
       main={
         <MyList
-          listItems={todos}
+          listItems={currentItems}
           lastItem={el => (lastItem.current = el)}
           selected={selected}
           handleClick={handleClick}
@@ -144,6 +140,16 @@ const Todos = props => {
             handleSubmit={handleSubmit}
           />
         </Grid>
+      }
+      pagination={
+        <ReactPaginate
+          onPageChange={paginate}
+          pageCount={Math.ceil(todos?.length / itemsPerPage)}
+          previousLabel={'Prev'}
+          nextLabel={'Next'}
+          renderOnZeroPageCount={null}
+          className="react-paginate"
+        />
       }
     />
   );

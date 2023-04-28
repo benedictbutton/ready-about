@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -37,14 +37,13 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(3),
   },
 }));
-//
 
 const MyList = ({ listItems, lastItem, selected, handleClick }) => {
   const classes = useStyles();
 
   const isSelected = id => selected.indexOf(id) !== -1;
 
-  const list = listItems.map(el => {
+  const list = listItems?.map(el => {
     const labelId = `checkbox-list-label-${el._id}`;
     const isItemSelected = isSelected(el._id);
 
@@ -77,14 +76,17 @@ const MyList = ({ listItems, lastItem, selected, handleClick }) => {
   });
 
   return (
-    <List dense className={classes.list}>
-      <TransitionGroup>{list}</TransitionGroup>
-      <span
-        className={classes.scroll}
-        ref={lastItem}
-        aria-hidden="true"
-      />
-    </List>
+    <>
+      <List dense className={classes.list}>
+        <TransitionGroup>{list}</TransitionGroup>
+        <span
+          className={classes.scroll}
+          ref={lastItem}
+          aria-hidden="true"
+        />
+      </List>
+      {/* <Pagination count={10} color="primary" /> */}
+    </>
   );
 };
 

@@ -1,13 +1,7 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import MyList from '../MyList';
 
-const History = ({ user, lastItem, selected, handleClick }) => {
-  const words = user?.wordsHistory.map(word => ({
-    _id: word._id,
-    item: word.text,
-  }));
-
+const History = ({ words, lastItem, selected, handleClick }) => {
   return (
     <>
       {(words?.length && (
