@@ -28,7 +28,7 @@ const Inside = props => {
   return (
     <>
       <div className={classes.root}>
-        <Grid container justify="flex-end">
+        <Grid container justifyContent="flex-end">
           <Date />
           <Profile />
         </Grid>

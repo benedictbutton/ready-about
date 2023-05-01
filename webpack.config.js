@@ -90,6 +90,13 @@ module.exports = {
           name: 'assets/img/[name].[ext]',
         },
       },
+      {
+        test: /\.mp3$/,
+        loader: 'file-loader',
+        // options: {
+        //   name: '[path][name].[ext]',
+        // },
+      },
     ],
   },
   mode: 'none',

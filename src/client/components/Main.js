@@ -39,7 +39,7 @@ const Main = ({ appBar, main, textField, pagination }) => {
       <Grid
         container
         className={classes.main}
-        justify="space-evenly"
+        justifyContent="space-evenly"
         alignItems="center"
       >
         <Grid item xs={11} className={classes.grid}>

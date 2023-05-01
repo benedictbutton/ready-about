@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -24,7 +24,8 @@ const useStyles = makeStyles(theme => ({
   },
   list: {
     flex: 1,
-    height: '100%',
+    height: '500px',
+    background: 'white',
   },
   container: {
     flex: 1,
@@ -50,6 +51,7 @@ const MyList = ({ listItems, lastItem, selected, handleClick }) => {
     return (
       <CSSTransition key={el._id} classNames="item" timeout={500}>
         <ListItem
+          key={el._id}
           className={isItemSelected ? `${classes.paper}` : null}
           role={undefined}
           dense

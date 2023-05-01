@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from 'react';
 import { gql, useQuery, useMutation } from '@apollo/client';
-import ReactPaginate from 'react-paginate';
 import { v4 as uuidv4 } from 'uuid';
-import usePagination from '../../CustomHooks/usePagination';
 import Main from '../Main';
 import MyAppBar from '../AppBar/MyAppBar';
 import EntryField from './EntryField';
@@ -11,6 +14,8 @@ import useForm from '../../CustomHooks/useForm';
 import useApi from '../../CustomHooks/useApi';
 import Header from './Header';
 import History from './History';
+import PageFlip from '../PageFlip';
+import Paginate from '../Paginate';
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -86,6 +91,7 @@ const DELETE_WORDS = gql`
 
 const Dictionary = () => {
   const classes = useStyles();
+  const page = useRef();
   const lastItem = useRef(null);
   const [openHistory, setOpenHistory] = useState(true);
   const [activeLink, setActiveLink] = useState(false);
@@ -118,6 +124,7 @@ const Dictionary = () => {
 
   const searchWord = () => {
     setOpenHistory(false);
+    setCurrentPage(1);
     doFetch(url);
     handleResetValues();
   };
@@ -221,18 +228,54 @@ const Dictionary = () => {
     item: word.text,
   }));
 
-  const { itemsPerPage, currentItems, paginate } = usePagination(
-    words,
+  const wordPages = [];
+  for (let i = 0; i <= words?.length; i += 10) {
+    wordPages.push(words.slice(i, i + 10));
+  }
+
+  const history = wordPages.map((el, idx) => {
+    return (
+      <div key={idx}>
+        <History
+          words={el}
+          lastItem={el => (lastItem.current = el)}
+          selected={selected}
+          handleClick={handleClick}
+          ref={flipbook}
+        />
+      </div>
+    );
+  });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const flipbook = useRef(null);
+  const flipBack = useCallback(
+    page => {
+      if (page === 0) return;
+      const pageFlipObj = flipbook.current.pageFlip();
+      if (page) pageFlipObj.flip(page);
+      setCurrentPage(page);
+    },
+    [flipbook],
+  );
+
+  const flipForward = useCallback(
+    page => {
+      const pageFlipObj = flipbook.current.pageFlip();
+      console.log('page: ', page);
+      console.log('pageCount: ', pageFlipObj?.getPageCount());
+      if (page >= pageFlipObj?.getPageCount()) return;
+      else {
+        pageFlipObj.flip(page);
+        setCurrentPage(page);
+      }
+    },
+    [flipbook],
   );
 
   const definition =
     !apiData || openHistory ? (
-      <History
-        words={currentItems}
-        lastItem={el => (lastItem.current = el)}
-        selected={selected}
-        handleClick={handleClick}
-      />
+      <PageFlip ref={flipbook}>{history}</PageFlip>
     ) : (
       <Grid
         container
@@ -261,7 +304,11 @@ const Dictionary = () => {
       }
       main={definition}
       textField={
-        <Grid container justify="space-around" alignItems="center">
+        <Grid
+          container
+          justifyContent="space-around"
+          alignItems="center"
+        >
           <Grid item xs={3} className={classes.subMenu}>
             <SubMenu
               activeLink={activeLink}
@@ -290,13 +337,13 @@ const Dictionary = () => {
         </Grid>
       }
       pagination={
-        <ReactPaginate
-          onPageChange={paginate}
-          pageCount={Math.ceil(words?.length / itemsPerPage)}
+        <Paginate
+          flipForward={flipForward}
+          flipBack={flipBack}
+          pageCount={Math.ceil(words?.length / 20)}
+          currentPage={currentPage}
           previousLabel={'Prev'}
           nextLabel={'Next'}
-          renderOnZeroPageCount={null}
-          className="react-paginate"
         />
       }
     />

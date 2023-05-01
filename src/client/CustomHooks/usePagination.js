@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const usePagination = listItems => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -11,11 +11,12 @@ const usePagination = listItems => {
     indexOfLastPost,
   );
 
-  const paginate = ({ selected }) => {
-    setCurrentPage(selected + 1);
+  const paginate = (e, selected) => {
+    e.preventDefault();
+    setCurrentPage(selected);
   };
 
-  return { itemsPerPage, currentItems, paginate };
+  return { itemsPerPage, currentItems, paginate, currentPage };
 };
 
 export default usePagination;
