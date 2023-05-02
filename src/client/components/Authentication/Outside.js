@@ -6,43 +6,64 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flex: 1,
-  },
-  header: {
-    color: '#e8eaf6',
-    fontWeight: 'bold',
-  },
-  button: {
-    backgroundColor: '#bbdefb',
-  },
-}));
+const useStyles = makeStyles(theme => {
+  console.log(theme);
+  return {
+    root: {
+      flex: 1,
+      alignContent: 'center',
+    },
+    headerContainer: {
+      borderColor: 'white',
+      borderStyle: 'solid',
+      borderWidth: 'thick',
+      backgroundColor: 'rgba(40,67,135, .6)',
+      padding: '1rem',
+    },
+    header: {
+      color: '#e8eaf6',
+      fontWeight: 'bold',
+      '@media (max-width:768px)': {
+        fontSize: '3rem',
+      },
+    },
+    buttons: {
+      marginTop: '3rem',
+      marginBottom: '4rem',
+    },
+    button: {
+      backgroundColor: '#bbdefb',
+    },
+  };
+});
 
 const Outside = () => {
   const classes = useStyles();
 
   return (
-    <>
+    <Grid
+      container
+      className={classes.root}
+      justifyContent="center"
+      alignItems="center"
+    >
       <Grid
-        container
-        className={classes.root}
-        justify="center"
-        alignItems="center"
+        item
+        xs={6}
+        alignItems="flex-start"
+        className={classes.headerContainer}
       >
-        <Grid item xs={12} align="center">
-          <Typography variant="h1" className={classes.header}>
-            Ready About!
-          </Typography>
-        </Grid>
+        <Typography variant="h1" className={classes.header}>
+          Ready About!
+        </Typography>
       </Grid>
       <Grid
         container
-        className={classes.root}
-        justify="center"
-        alignItems="flex-start"
+        className={classes.buttons}
+        justifyContent="center"
+        alignItems="center"
       >
-        <Grid item xs={5} align="center">
+        <Grid item xs={3} align="center">
           <Link
             to="/entryway"
             state={{ selection: 'signup' }}
@@ -53,7 +74,7 @@ const Outside = () => {
             </Button>
           </Link>
         </Grid>
-        <Grid item xs={5} align="center">
+        <Grid item xs={3} align="center">
           <Link
             to="/entryway"
             state={{ selection: 'signin' }}
@@ -65,7 +86,7 @@ const Outside = () => {
           </Link>
         </Grid>
       </Grid>
-    </>
+    </Grid>
   );
 };
 
