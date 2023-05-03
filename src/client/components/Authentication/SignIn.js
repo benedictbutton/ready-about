@@ -4,11 +4,9 @@ import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 // material-ui
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
+
 import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -107,7 +105,6 @@ const SignIn = props => {
 
   const handleRedirect = event => {
     event.preventDefault();
-    console.log('test');
     props.history.push('/');
   };
 

@@ -1,7 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-import Toggle from '../AppBar/Toggle';
-// material-ui
+
 import { makeStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -9,6 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
+
+import Toggle from '../AppBar/Toggle';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,9 +47,6 @@ const DictionaryToolbar = ({
     numSelected > 0 ? { color: '#3B5768' } : { color: 'white' };
 
   const classes = useStyles(alter);
-  const [open, setOpen] = useState(false);
-
-  console.log(numSelected + ', ' + numOfWords);
 
   return (
     <Toolbar
@@ -65,7 +63,8 @@ const DictionaryToolbar = ({
       />
       {numSelected > 0 && (
         <Typography className={classes.title} variant="subtitle1">
-          {numSelected} selected
+          {numSelected}
+          <span> selected</span>
         </Typography>
       )}
       {!numSelected && (

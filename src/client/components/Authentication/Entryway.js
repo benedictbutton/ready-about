@@ -1,11 +1,12 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import SignUp from './SignUp';
-import SignIn from './SignIn';
-// material-ui
+
 import Grid from '@material-ui/core/Grid';
 
-const Entryway = props => {
+import SignUp from './SignUp';
+import SignIn from './SignIn';
+
+const Entryway = () => {
   const { state } = useLocation();
 
   return (

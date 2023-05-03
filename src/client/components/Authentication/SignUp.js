@@ -4,7 +4,6 @@ import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 // material-ui
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
 import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';

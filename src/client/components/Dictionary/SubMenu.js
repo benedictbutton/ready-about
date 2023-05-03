@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
   typeBottom: {
     fontFamily: props =>
-      !props.activeLink
+      props.activeLink
         ? "'Parisienne', cursive"
         : "'Helvetica Neue', sans-serif",
     margin: theme.spacing(2),
@@ -36,13 +36,7 @@ const useStyles = makeStyles(theme => ({
 
 const SubMenu = props => {
   const classes = useStyles(props);
-  const {
-    activeLink,
-    setActiveLink,
-    topMenuOption,
-    bottomMenuOption,
-    setOpenHistory,
-  } = props;
+  const { activeLink, bottomMenuOption, setOpenHistory } = props;
 
   return (
     <CSSTransition classNames="link" in={!activeLink} timeout={500}>

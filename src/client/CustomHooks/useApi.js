@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const useApi = (apiUrl, header) => {
   const [apiData, setApiData] = useState();
@@ -16,7 +16,6 @@ const useApi = (apiUrl, header) => {
         if (!response.ok) throw response.status;
         const responseJson = await response.json();
         setApiData(responseJson);
-        console.log(responseJson);
       } catch (error) {
         setIsError(true);
       }

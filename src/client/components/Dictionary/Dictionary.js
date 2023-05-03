@@ -6,6 +6,11 @@ import React, {
 } from 'react';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { v4 as uuidv4 } from 'uuid';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+
 import Main from '../Main';
 import MyAppBar from '../AppBar/MyAppBar';
 import EntryField from './EntryField';
@@ -16,10 +21,6 @@ import Header from './Header';
 import History from './History';
 import PageFlip from '../PageFlip';
 import Paginate from '../Paginate';
-// material-ui
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
   grid: {
@@ -91,12 +92,11 @@ const DELETE_WORDS = gql`
 
 const Dictionary = () => {
   const classes = useStyles();
-  const page = useRef();
   const lastItem = useRef(null);
   const [openHistory, setOpenHistory] = useState(true);
   const [activeLink, setActiveLink] = useState(false);
-  const { loading, error, data } = useQuery(GET_HISTORY);
-  const [addHistory, { client }] = useMutation(ADD_HISTORY, {
+  const { data } = useQuery(GET_HISTORY);
+  const [addHistory] = useMutation(ADD_HISTORY, {
     refetchQueries: [{ query: GET_HISTORY }],
   });
   const [deleteWords] = useMutation(DELETE_WORDS, {
@@ -244,10 +244,11 @@ const Dictionary = () => {
   const flipbook = useRef(null);
   const flipBack = useCallback(
     page => {
-      if (page === 0) return;
       const pageFlipObj = flipbook.current.pageFlip();
-      if (page) pageFlipObj.flip(page);
-      setCurrentPage(page);
+      if (page !== 0) {
+        pageFlipObj.flip(page);
+        setCurrentPage(page);
+      }
     },
     [flipbook],
   );
@@ -255,8 +256,7 @@ const Dictionary = () => {
   const flipForward = useCallback(
     page => {
       const pageFlipObj = flipbook.current.pageFlip();
-      if (page >= pageFlipObj?.getPageCount()) return;
-      else {
+      if (page < pageFlipObj?.getPageCount()) {
         pageFlipObj.flip(page);
         setCurrentPage(page);
       }
@@ -303,8 +303,6 @@ const Dictionary = () => {
           <Grid item xs={3} className={classes.subMenu}>
             <SubMenu
               activeLink={activeLink}
-              setActiveLink={setActiveLink}
-              topMenuOption="Dictionary"
               bottomMenuOption="Thesaurus"
               doFetch={doFetch}
             />
@@ -319,8 +317,6 @@ const Dictionary = () => {
           <Grid item xs={3} className={classes.subMenu}>
             <SubMenu
               activeLink={activeLink}
-              setActiveLink={setActiveLink}
-              topMenuOption="History"
               bottomMenuOption="Favorites"
               setOpenHistory={setOpenHistory}
             />

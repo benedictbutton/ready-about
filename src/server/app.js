@@ -159,7 +159,6 @@ const server = new ApolloServer({
   subscriptions: false,
   formatError: error => {
     const { message } = error;
-    console.log(error);
     return {
       ...error,
       message,

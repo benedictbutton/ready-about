@@ -1,59 +1,21 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactPaginate from 'react-paginate';
+
+import Grid from '@material-ui/core/Grid';
+
 import useForm from '../../CustomHooks/useForm';
 import usePagination from '../../CustomHooks/usePagination';
 import MyList from '../MyList';
 import Main from '../Main';
 import MyAppBar from '../AppBar/MyAppBar';
 import EntryField from '../EntryField';
-// material-ui
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles(theme => ({
-  main: {
-    flex: 1,
-    background: '#9fa8a3',
-    maxWidth: '85%',
-    margin: theme.spacing(5, 0),
-    paddingTop: theme.spacing(3),
-  },
-  root: {
-    flex: 1,
-    width: '100%',
-    // padding: theme.spacing(3, 2)
-  },
-  paper: {
-    boxShadow:
-      '10px -5px 5px rgba(0,0,0,0.3), inset 3px -5px 5px rgba(0,0,0,0.3)',
-    '&:hover': {
-      elevation: 24,
-    },
-  },
-  list: {
-    flex: 1,
-    height: '100%',
-  },
-  container: {
-    flex: 1,
-    // flexWrap: "wrap"
-  },
-  multi: {
-    display: 'flexWrap',
-  },
-  scroll: {
-    height: 53,
-    marginTop: theme.spacing(3),
-  },
-}));
-
-const Todos = props => {
-  const classes = useStyles();
+const Todos = () => {
   const lastItem = useRef(null);
   const dispatch = useDispatch();
 
-  const [trigger, setTrigger] = useState(true);
+  const [, setTrigger] = useState(true);
 
   const { todos } = useSelector(state => state.todos);
 
@@ -145,8 +107,8 @@ const Todos = props => {
         <ReactPaginate
           onPageChange={paginate}
           pageCount={Math.ceil(todos?.length / itemsPerPage)}
-          previousLabel={'Prev'}
-          nextLabel={'Next'}
+          previousLabel="Prev"
+          nextLabel="Next"
           renderOnZeroPageCount={null}
           className="react-paginate"
         />
