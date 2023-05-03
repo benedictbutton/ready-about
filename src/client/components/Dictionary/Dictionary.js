@@ -149,20 +149,6 @@ const Dictionary = () => {
     headers,
   );
 
-  // const updateHistory = (client, { data }) => {
-  //   const { user: wordsHistory } = client.readQuery({
-  //     query: GET_HISTORY,
-  //   });
-
-  //   const newWord = apiData[0].meta.id;
-  //   if (newWord[newWord.length - 2] === ':')
-  //     newWord = newWord.slice(0, -2);
-  //   client.writeQuery({
-  //     query: GET_HISTORY,
-  //     data: { history: [newWord, ...wordsHistory] },
-  //   });
-  // };
-
   useEffect(() => {
     if (!apiData) return;
     if (apiData[0].meta) {
@@ -247,6 +233,13 @@ const Dictionary = () => {
     );
   });
 
+  // useEffect(() => {
+  //   if (openHistory) getHistory();
+
+  //   return () => setOpenHistory(false);
+  // }, [openHistory]);
+  // console.log('test');
+
   const [currentPage, setCurrentPage] = useState(1);
   const flipbook = useRef(null);
   const flipBack = useCallback(
@@ -262,8 +255,6 @@ const Dictionary = () => {
   const flipForward = useCallback(
     page => {
       const pageFlipObj = flipbook.current.pageFlip();
-      console.log('page: ', page);
-      console.log('pageCount: ', pageFlipObj?.getPageCount());
       if (page >= pageFlipObj?.getPageCount()) return;
       else {
         pageFlipObj.flip(page);

@@ -39,15 +39,26 @@ const applySignInRequest = state => ({
   requesting: true,
 });
 
-const applySignInSuccess = (state, action) => ({
-  ...state,
-  requesting: false,
-  successful: true,
-  id: action.responseJson.user._id,
-  username: action.responseJson.user.username,
-  phoneNumber: action.responseJson.user.phoneNumber || 'unlisted',
-  avatar: action.responseJson.user.avatar || '',
-});
+const applySignInSuccess = (state, action) => {
+  const {
+    token,
+    _id,
+    username,
+    phoneNumber,
+    avatar,
+  } = action.responseJson.user;
+
+  sessionStorage.setItem('jwt', token);
+  return {
+    ...state,
+    requesting: false,
+    successful: true,
+    id: _id,
+    username: username,
+    phoneNumber: phoneNumber || 'unlisted',
+    avatar: avatar || '',
+  };
+};
 
 const applyUserEditRequesting = state => ({
   ...state,

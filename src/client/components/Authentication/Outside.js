@@ -6,36 +6,33 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => {
-  console.log(theme);
-  return {
-    root: {
-      flex: 1,
-      alignContent: 'center',
+const useStyles = makeStyles(theme => ({
+  root: {
+    flex: 1,
+    alignContent: 'center',
+  },
+  headerContainer: {
+    borderColor: 'white',
+    borderStyle: 'solid',
+    borderWidth: 'thick',
+    backgroundColor: 'rgba(40,67,135, .6)',
+    padding: '1rem',
+  },
+  header: {
+    color: '#e8eaf6',
+    fontWeight: 'bold',
+    '@media (max-width:768px)': {
+      fontSize: '3rem',
     },
-    headerContainer: {
-      borderColor: 'white',
-      borderStyle: 'solid',
-      borderWidth: 'thick',
-      backgroundColor: 'rgba(40,67,135, .6)',
-      padding: '1rem',
-    },
-    header: {
-      color: '#e8eaf6',
-      fontWeight: 'bold',
-      '@media (max-width:768px)': {
-        fontSize: '3rem',
-      },
-    },
-    buttons: {
-      marginTop: '3rem',
-      marginBottom: '4rem',
-    },
-    button: {
-      backgroundColor: '#bbdefb',
-    },
-  };
-});
+  },
+  buttons: {
+    marginTop: '3rem',
+    marginBottom: '4rem',
+  },
+  button: {
+    backgroundColor: '#bbdefb',
+  },
+}));
 
 const Outside = () => {
   const classes = useStyles();

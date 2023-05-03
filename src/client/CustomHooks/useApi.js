@@ -6,10 +6,6 @@ const useApi = (apiUrl, header) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  // setUrl(
-  //   `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${query}?key=${process.env.DICTIIONARY_API}`,
-  // );
-
   useEffect(() => {
     if (url === '') return;
     const fetchData = async () => {
