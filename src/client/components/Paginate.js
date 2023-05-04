@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
 const Paginate = ({
   flipForward,
@@ -12,6 +12,10 @@ const Paginate = ({
   for (let i = 1; i <= pageCount; i++) {
     pageNumbers.push(i);
   }
+
+  useEffect(() => {
+    if (currentPage > pageCount) flipBack(currentPage - 1);
+  }, [currentPage, pageCount, flipBack]);
 
   return (
     <div style={{ zIndex: '9000' }}>

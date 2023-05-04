@@ -87,7 +87,6 @@ const MyList = ({ listItems, lastItem, selected, handleClick }) => {
           aria-hidden="true"
         />
       </List>
-      {/* <Pagination count={10} color="primary" /> */}
     </>
   );
 };

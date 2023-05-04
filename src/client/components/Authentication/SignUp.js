@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-// material-ui
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import LockIcon from '@material-ui/icons/LockOutlined';
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SignUp = props => {
+const SignUp = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -63,9 +63,7 @@ const SignUp = props => {
 
   useEffect(() => {
     if (user.successful) navigate('/in/todos');
-  }, [user.successful]);
-
-  // const MyLink = props => <Link to="/" {...props} />;
+  }, [user.successful, navigate]);
 
   return (
     <main className={classes.layout}>
@@ -106,15 +104,17 @@ const SignUp = props => {
           >
             Sign up
           </Button>
-          <Button
-            fullWidth
-            className={classes.button}
-            align="left"
-            variant="contained"
-            color="secondary"
-          >
-            Cancel
-          </Button>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <Button
+              fullWidth
+              className={classes.button}
+              align="left"
+              variant="contained"
+              color="secondary"
+            >
+              Cancel
+            </Button>
+          </Link>
         </form>
       </Paper>
     </main>

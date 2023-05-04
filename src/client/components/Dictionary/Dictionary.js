@@ -99,9 +99,13 @@ const Dictionary = () => {
   const [addHistory] = useMutation(ADD_HISTORY, {
     refetchQueries: [{ query: GET_HISTORY }],
   });
+
+  const handlePageChange = () => {};
+
   const [deleteWords] = useMutation(DELETE_WORDS, {
     refetchQueries: [{ query: GET_HISTORY }],
   });
+  // onCompleted: handlePageChange,
 
   const {
     selected,
@@ -233,13 +237,6 @@ const Dictionary = () => {
     );
   });
 
-  // useEffect(() => {
-  //   if (openHistory) getHistory();
-
-  //   return () => setOpenHistory(false);
-  // }, [openHistory]);
-  // console.log('test');
-
   const [currentPage, setCurrentPage] = useState(1);
   const flipbook = useRef(null);
   const flipBack = useCallback(
@@ -301,11 +298,11 @@ const Dictionary = () => {
           alignItems="center"
         >
           <Grid item xs={3} className={classes.subMenu}>
-            <SubMenu
+            {/* <SubMenu
               activeLink={activeLink}
               bottomMenuOption="Thesaurus"
               doFetch={doFetch}
-            />
+            /> */}
           </Grid>
           <Grid item xs={4}>
             <EntryField
@@ -329,8 +326,8 @@ const Dictionary = () => {
           flipBack={flipBack}
           pageCount={Math.ceil(words?.length / 20)}
           currentPage={currentPage}
-          previousLabel={'Prev'}
-          nextLabel={'Next'}
+          previousLabel="Prev"
+          nextLabel="Next"
         />
       }
     />
