@@ -1,7 +1,6 @@
+/* eslint-disable import/no-cycle */
 import React, { useState, useEffect } from 'react';
-import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Main from '../Main';
 import MyAppBar from '../AppBar/MyAppBar';
 import Form from './Form';
@@ -9,6 +8,10 @@ import Panels from './Panels';
 import useForm from '../../CustomHooks/useForm';
 
 const useStyles = makeStyles(theme => ({
+  page: {
+    overflow: 'scroll',
+    height: '100%',
+  },
   sku: {
     textAlign: 'left',
     fontWeight: 800,
@@ -86,7 +89,7 @@ const Script = () => {
   }, [ppa]);
 
   const scripts = (
-    <>
+    <div className={classes.page}>
       <Form
         values={values}
         handleChange={handleChange}
@@ -98,14 +101,15 @@ const Script = () => {
         handlePromoValues={handlePromoValues}
         handleUnitValue={handleUnitValue}
         handleAddPromoFields={handleAddPromoFields}
-      />
-      <Panels
-        values={values}
-        ppa={ppa}
-        handleChange={handleChange}
-        promoValues={promoValues}
-      />
-    </>
+      >
+        <Panels
+          values={values}
+          ppa={ppa}
+          handleChange={handleChange}
+          promoValues={promoValues}
+        />
+      </Form>
+    </div>
   );
 
   return <Main appBar={<MyAppBar />} main={scripts} />;
