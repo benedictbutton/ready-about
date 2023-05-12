@@ -29,7 +29,7 @@ exports.editUser = async (req, res) => {
     const user = await User.findOneAndUpdate(
       { username: req.payload.username },
       { [editProp]: edit },
-      { upsert: true, new: true },
+      { upsert: false, new: true },
     );
     return res.json({
       user,

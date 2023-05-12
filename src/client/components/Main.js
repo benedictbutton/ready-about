@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '85%',
     margin: theme.spacing(3, 0),
     padding: theme.spacing(3, 0),
+    overflow: 'scroll',
   },
   grid: {
     height: '100%',
