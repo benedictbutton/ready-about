@@ -100,12 +100,9 @@ const Dictionary = () => {
     refetchQueries: [{ query: GET_HISTORY }],
   });
 
-  const handlePageChange = () => {};
-
   const [deleteWords] = useMutation(DELETE_WORDS, {
     refetchQueries: [{ query: GET_HISTORY }],
   });
-  // onCompleted: handlePageChange,
 
   const {
     selected,
@@ -269,6 +266,7 @@ const Dictionary = () => {
         container
         className={classes.grid}
         justifyContent="flex-start"
+        alignContent="flex-start"
       >
         <Grid item xs={12} align="left">
           <Header apiData={apiData} />
