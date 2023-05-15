@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 import useForm from '../../CustomHooks/useForm';
 import usePagination from '../../CustomHooks/usePagination';
+import useSelectList from '../../CustomHooks/useSelectList';
 import MyList from '../MyList';
 import Main from '../Main';
 import MyAppBar from '../AppBar/MyAppBar';
@@ -51,23 +52,11 @@ const Todos = () => {
     handleClick,
     handleSelectAllClick,
     handleResetSelected,
-    handleKeyUp,
-    handleKeyDown,
-  } = useForm();
+  } = useSelectList(todos);
 
   const { itemsPerPage, currentItems, paginate } = usePagination(
     todos,
   );
-
-  useEffect(() => {
-    window.addEventListener('keyup', handleKeyUp);
-    return () => window.removeEventListener('keyup', handleKeyUp);
-  }, [handleKeyUp]);
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
 
   useEffect(() => {
     dispatch({ type: 'TODOS_INDEX_REQUESTING' });

@@ -60,7 +60,6 @@ module.exports = {
       }
     },
     deleteWords: async (parent, { _id }, { me, models }) => {
-      console.log('test: ', _id);
       try {
         const user = await models.User.findById(me.id);
         await models.User.findOneAndUpdate(

@@ -5,7 +5,7 @@ const History = ({ words, lastItem, selected, handleClick }) => {
   return (
     <MyList
       listItems={words}
-      lastItem={lastItem}
+      lastItem={el => (lastItem.current = el)}
       selected={selected}
       handleClick={handleClick}
     />

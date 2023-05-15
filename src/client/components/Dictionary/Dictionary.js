@@ -15,8 +15,9 @@ import Main from '../Main';
 import MyAppBar from '../AppBar/MyAppBar';
 import EntryField from './EntryField';
 import SubMenu from './SubMenu';
-import useForm from '../../CustomHooks/useForm';
 import useApi from '../../CustomHooks/useApi';
+import useForm from '../../CustomHooks/useForm';
+import useSelectList from '../../CustomHooks/useSelectList';
 import Header from './Header';
 import History from './History';
 import PageFlip from '../PageFlip';
@@ -94,7 +95,7 @@ const Dictionary = () => {
   const classes = useStyles();
   const lastItem = useRef(null);
   const [openHistory, setOpenHistory] = useState(true);
-  const [activeLink, setActiveLink] = useState(false);
+  const [activeLink] = useState(false);
   const { data } = useQuery(GET_HISTORY);
   const [addHistory] = useMutation(ADD_HISTORY, {
     refetchQueries: [{ query: GET_HISTORY }],
@@ -103,25 +104,6 @@ const Dictionary = () => {
   const [deleteWords] = useMutation(DELETE_WORDS, {
     refetchQueries: [{ query: GET_HISTORY }],
   });
-
-  const {
-    selected,
-    handleClick,
-    handleSelectAllClick,
-    handleResetSelected,
-    handleKeyUp,
-    handleKeyDown,
-  } = useForm();
-
-  useEffect(() => {
-    window.addEventListener('keyup', handleKeyUp);
-    return () => window.removeEventListener('keyup', handleKeyUp);
-  }, [handleKeyUp]);
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
 
   const searchWord = () => {
     setOpenHistory(false);
@@ -215,20 +197,26 @@ const Dictionary = () => {
     item: word.text,
   }));
 
+  const {
+    selected,
+    handleClick,
+    handleSelectAllClick,
+    handleResetSelected,
+  } = useSelectList(words);
+
   const wordPages = [];
   for (let i = 0; i <= words?.length; i += 10) {
     wordPages.push(words.slice(i, i + 10));
   }
 
-  const history = wordPages.map((el, idx) => {
+  const history = wordPages.map((wordList, idx) => {
     return (
       <div key={idx}>
         <History
-          words={el}
+          words={wordList}
           lastItem={el => (lastItem.current = el)}
           selected={selected}
           handleClick={handleClick}
-          ref={flipbook}
         />
       </div>
     );
