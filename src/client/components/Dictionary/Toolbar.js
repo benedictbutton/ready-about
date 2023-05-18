@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
@@ -42,6 +43,7 @@ const DictionaryToolbar = ({
   deleteWords,
   selected,
   handleResetSelected,
+  handleSelectSubmit,
 }) => {
   const alter =
     numSelected > 0 ? { color: '#3B5768' } : { color: 'white' };
@@ -76,6 +78,16 @@ const DictionaryToolbar = ({
         >
           DICTIONARY
         </Typography>
+      )}
+      {numSelected === 1 && (
+        <Tooltip title="Search">
+          <IconButton
+            aria-label="search"
+            onClick={handleSelectSubmit}
+          >
+            <SearchIcon className={classes.checkbox} />
+          </IconButton>
+        </Tooltip>
       )}
       {numSelected > 0 ? (
         <Tooltip title="Delete">

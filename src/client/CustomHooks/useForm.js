@@ -23,7 +23,7 @@ const useForm = callback => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    callback();
+    callback(values);
   };
 
   const handleResetValues = () => setValues({});

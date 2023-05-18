@@ -105,10 +105,14 @@ const Dictionary = () => {
     refetchQueries: [{ query: GET_HISTORY }],
   });
 
-  const searchWord = () => {
+  const baseUrl = `https://www.dictionaryapi.com/api/v3/references/collegiate/json/`;
+  const key = `?key=${process.env.DICTIONARY_API}`;
+  const getUrl = (urlRoot, word, urlKey) => urlRoot + word + urlKey;
+
+  const searchWord = values => {
     setOpenHistory(false);
     setCurrentPage(1);
-    doFetch(url);
+    doFetch(getUrl(baseUrl, values?.word, key));
     handleResetValues();
   };
 
@@ -119,7 +123,6 @@ const Dictionary = () => {
     handleResetValues,
   } = useForm(searchWord);
 
-  const url = `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${values.word}?key=fcf2dd30-293b-4009-972c-dd69263cce7d`;
   const headers = {
     method: 'GET',
     headers: {
@@ -197,12 +200,15 @@ const Dictionary = () => {
     item: word.text,
   }));
 
+  console.log(words);
+
   const {
     selected,
     handleClick,
     handleSelectAllClick,
     handleResetSelected,
-  } = useSelectList(words);
+    handleSelectSubmit,
+  } = useSelectList(words, searchWord);
 
   const wordPages = [];
   for (let i = 0; i <= words?.length; i += 10) {
@@ -274,6 +280,7 @@ const Dictionary = () => {
           deleteWords={deleteWords}
           selected={selected}
           handleResetSelected={handleResetSelected}
+          handleSelectSubmit={handleSelectSubmit}
         />
       }
       main={definition}

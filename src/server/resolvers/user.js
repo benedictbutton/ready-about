@@ -51,7 +51,7 @@ module.exports = {
         );
         const user = await models.User.update(
           { username: me.username },
-          { $push: { 'words.history': word } },
+          { $addToSet: { 'words.history': word } },
           { upsert: true, new: true },
         );
         return word;
