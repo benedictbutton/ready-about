@@ -200,8 +200,6 @@ const Dictionary = () => {
     item: word.text,
   }));
 
-  console.log(words);
-
   const {
     selected,
     handleClick,
@@ -217,7 +215,7 @@ const Dictionary = () => {
 
   const history = wordPages.map((wordList, idx) => {
     return (
-      <div key={idx}>
+      <div key={idx} data-density="hard">
         <History
           words={wordList}
           lastItem={el => (lastItem.current = el)}
