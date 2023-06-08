@@ -131,7 +131,7 @@ const Profile = props => {
             container
             className={classes.grid}
             spacing={2}
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             onMouseEnter={() => setProfile(true)}
             onMouseLeave={() => setProfile(false)}

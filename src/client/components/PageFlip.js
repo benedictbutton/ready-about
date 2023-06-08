@@ -25,7 +25,6 @@ const PageFlip = React.forwardRef((props, ref) => {
       drawShadow={false}
       flippingTime={750}
       useMouseEvents={false}
-      renderOnlyPageLengthChange
     >
       {props.children}
     </HTMLFlipBook>
