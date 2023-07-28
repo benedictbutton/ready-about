@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useRef,
   useCallback,
+  useMemo,
 } from 'react';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { v4 as uuidv4 } from 'uuid';
@@ -195,10 +196,12 @@ const Dictionary = () => {
     }
   }
 
-  const words = data?.user?.wordsHistory.map(word => ({
-    _id: word._id,
-    item: word.text,
-  }));
+  const words = useMemo(() => {
+    return data?.user?.wordsHistory.map(word => ({
+      _id: word._id,
+      item: word.text,
+    }));
+  }, [data]);
 
   const {
     selected,
@@ -213,39 +216,42 @@ const Dictionary = () => {
     wordPages.push(words.slice(i, i + 10));
   }
 
-  const history = wordPages.map((wordList, idx) => {
-    return (
-      <div key={idx} data-density="hard">
-        <History
-          words={wordList}
-          lastItem={el => (lastItem.current = el)}
-          selected={selected}
-          handleClick={handleClick}
-        />
-      </div>
-    );
-  });
+  const history = useMemo(
+    () =>
+      wordPages.map((wordList, idx) => {
+        return (
+          <div key={idx} data-density="hard">
+            <History
+              words={wordList}
+              lastItem={el => (lastItem.current = el)}
+              selected={selected}
+              handleClick={handleClick}
+            />
+          </div>
+        );
+      }),
+    [handleClick, selected, wordPages],
+  );
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const flipbook = useRef(null);
   const flipBack = useCallback(
     page => {
-      const pageFlipObj = flipbook.current.pageFlip();
-      if (page !== 0) {
-        pageFlipObj.flip(page);
-        setCurrentPage(page);
-      }
+      flipbook.current.pageFlip().flipPrev();
+      setCurrentPage(page);
     },
     [flipbook],
   );
 
+  const flipTo = page => {
+    flipbook.current.pageFlip().flip(page * 2);
+    setCurrentPage(page);
+  };
+
   const flipForward = useCallback(
     page => {
-      const pageFlipObj = flipbook.current.pageFlip();
-      if (page < pageFlipObj?.getPageCount()) {
-        pageFlipObj.flip(page);
-        setCurrentPage(page);
-      }
+      flipbook.current.pageFlip().flipNext();
+      setCurrentPage(page);
     },
     [flipbook],
   );
@@ -295,7 +301,7 @@ const Dictionary = () => {
               doFetch={doFetch}
             /> */}
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={5}>
             <EntryField
               values={values}
               handleChange={handleChange}
@@ -315,6 +321,7 @@ const Dictionary = () => {
         <Paginate
           flipForward={flipForward}
           flipBack={flipBack}
+          flipTo={flipTo}
           pageCount={Math.ceil(words?.length / 20)}
           currentPage={currentPage}
           previousLabel="Prev"

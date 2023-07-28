@@ -48,38 +48,38 @@ const EntryField = ({ values, handleChange, handleSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit} className={classes.container}>
-      <Grid
+      {/* <Grid
         container
         className={classes.root}
         spacing={3}
-        justify="space-around"
+        justifyContent="space-around"
         alignItems="center"
-      >
-        <Grid item xs={10}>
-          <TextField
-            id="outlined-basic"
-            className={classes.textField}
-            fullWidth
-            autoComplete="off"
-            placeholder="Enter Todo..."
-            margin="normal"
-            variant="outlined"
-            name="item"
-            value={values.item || ''}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item align="center">
-          <Button
-            type="submit"
-            variant="contained"
-            size="large"
-            className={classes.button}
-          >
-            Enter
-          </Button>
-        </Grid>
+      > */}
+      <Grid item xs={2}>
+        <TextField
+          id="outlined-basic"
+          className={classes.textField}
+          fullWidth
+          autoComplete="off"
+          placeholder="Enter Todo..."
+          margin="normal"
+          variant="outlined"
+          name="item"
+          value={values.item || ''}
+          onChange={handleChange}
+        />
       </Grid>
+      <Grid item xs={2} align="center">
+        <Button
+          type="submit"
+          variant="contained"
+          size="large"
+          className={classes.button}
+        >
+          Enter
+        </Button>
+      </Grid>
+      {/* </Grid> */}
     </form>
   );
 };

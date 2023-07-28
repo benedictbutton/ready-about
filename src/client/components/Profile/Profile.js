@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import LogOut from '../Authentication/LogOut';
 // material-ui
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -12,6 +11,8 @@ import MyAvatar from './Avatar';
 import AvatarField from './AvatarField';
 import EditProfile from './EditProfile';
 import Field from './Field';
+
+import LogOut from '../Authentication/LogOut';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -49,7 +50,7 @@ const MyPaper = props => {
   return <Paper className={classes.paper} {...other} />;
 };
 
-const Profile = props => {
+const Profile = () => {
   const file = useRef(null);
   const [ignore, setIgnore] = useState(false);
   const [profile, setProfile] = useState(false);
@@ -115,7 +116,7 @@ const Profile = props => {
     setPicture(file.current.files[0]);
   };
 
-  const handleUpload = () => {
+  const handleUpload = event => {
     event.preventDefault();
     setIgnore(true);
   };
@@ -153,7 +154,7 @@ const Profile = props => {
                 container
                 className={classes.grid}
                 spacing={2}
-                justify="center"
+                justifyContent="center"
                 alignItems="center"
               >
                 <Grid item xs={12}>

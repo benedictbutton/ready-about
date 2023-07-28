@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import MyList from '../MyList';
 
 const History = ({ words, lastItem, selected, handleClick }) => {
@@ -12,4 +12,11 @@ const History = ({ words, lastItem, selected, handleClick }) => {
   );
 };
 
-export default History;
+const MemoizedHistory = memo(
+  History,
+  (oldProps, newProps) =>
+    oldProps.words !== newProps.words &&
+    oldProps.selected === newProps.selected,
+);
+
+export default MemoizedHistory;

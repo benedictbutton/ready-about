@@ -243,6 +243,7 @@ ul.react-paginate li.selected a {
   min-width: 32px;
 }
 ul.react-paginate li.disabled a {
+  pointer-events: none;
   color: grey;
 }
 ul.react-paginate li.disable,

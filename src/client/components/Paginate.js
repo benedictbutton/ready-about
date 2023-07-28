@@ -3,52 +3,50 @@ import React, { useEffect } from 'react';
 const Paginate = ({
   flipForward,
   flipBack,
+  flipTo,
   pageCount,
   currentPage,
   previousLabel,
   nextLabel,
 }) => {
   const pageNumbers = [];
-  for (let i = 1; i <= pageCount; i++) {
+  for (let i = 1; i <= pageCount; i += 1) {
     pageNumbers.push(i);
   }
 
   useEffect(() => {
     if (currentPage > pageCount) flipBack(currentPage - 1);
-  }, [currentPage, pageCount, flipBack]);
+    // if (currentPage < pageCount) flipForward(currentPage + 1);
+  }, [currentPage, pageCount, flipBack, flipForward]);
 
   return (
     <div style={{ zIndex: '9000' }}>
       <ul className="react-paginate">
         <li
           className={`previous ${
-            currentPage === 1 ? 'disabled' : null
+            currentPage === 0 ? 'disabled' : null
           }`}
-          onClick={() => flipBack(currentPage - 1)}
-          aria-label="Previous"
-          aria-disabled={currentPage === 1}
         >
-          <a>{previousLabel}</a>
+          <a onClick={() => flipBack(currentPage - 1)}>
+            {previousLabel}
+          </a>
         </li>
         {pageNumbers.map(number => (
           <li
             key={number}
-            onClick={() => flipForward(number)}
-            className={currentPage === number ? 'selected' : null}
-            aria-label={`Page ${number}`}
+            className={currentPage + 1 === number ? 'selected' : null}
           >
-            <a>{number}</a>
+            <a onClick={() => flipTo(number - 1)}>{number}</a>
           </li>
         ))}
         <li
           className={`next ${
-            currentPage === pageCount ? 'disabled' : null
+            currentPage === pageCount - 1 ? 'disabled' : null
           }`}
-          onClick={() => flipForward(currentPage + 1)}
-          aria-label="Next"
-          aria-disabled={currentPage === pageCount}
         >
-          <a>{nextLabel}</a>
+          <a onClick={() => flipForward(currentPage + 1)}>
+            {nextLabel}
+          </a>
         </li>
       </ul>
     </div>

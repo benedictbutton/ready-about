@@ -5,15 +5,14 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   container: {
     display: 'flex',
     // flexWrap: 'wrap',
   },
-  root: { flex: 1 },
   textField: {
     background: 'white',
-    margin: theme.spacing(2, 1, 0, 1),
+    // margin: theme.spacing(2, 1, 0, 1),
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
         borderColor: '#191970',
@@ -49,16 +48,16 @@ const EntryField = ({ values, handleChange, handleSubmit }) => {
         container
         className={classes.root}
         spacing={3}
-        justifyContent="space-around"
+        justifyContent="center"
         alignItems="center"
       >
-        <Grid item xs={10}>
+        <Grid item className={classes.root}>
           <TextField
             id="outlined-basic"
             className={classes.textField}
             autoComplete="off"
             placeholder="Enter Word..."
-            margin="normal"
+            margin="none"
             variant="outlined"
             name="word"
             value={values.word || ''}

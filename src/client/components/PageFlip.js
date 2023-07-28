@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import useSound from 'use-sound';
 import pageFlipSFX from '../../../dist/assets/page-flip-01a.mp3';
@@ -31,4 +31,4 @@ const PageFlip = React.forwardRef((props, ref) => {
   );
 });
 
-export default PageFlip;
+export default memo(PageFlip);
