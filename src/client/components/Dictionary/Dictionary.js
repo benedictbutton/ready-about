@@ -233,28 +233,18 @@ const Dictionary = () => {
     [handleClick, selected, wordPages],
   );
 
-  const [currentPage, setCurrentPage] = useState(0);
   const flipbook = useRef(null);
-  const flipBack = useCallback(
-    page => {
-      flipbook.current.pageFlip().flipPrev();
-      setCurrentPage(page);
-    },
-    [flipbook],
-  );
+  const flipBack = () => {
+    flipbook.current.pageFlip().flipPrev();
+  };
 
   const flipTo = page => {
     flipbook.current.pageFlip().flip(page * 2);
-    setCurrentPage(page);
   };
 
-  const flipForward = useCallback(
-    page => {
-      flipbook.current.pageFlip().flipNext();
-      setCurrentPage(page);
-    },
-    [flipbook],
-  );
+  const flipForward = () => {
+    flipbook.current.pageFlip().flipNext();
+  };
 
   const definition =
     !apiData || openHistory ? (
@@ -323,7 +313,6 @@ const Dictionary = () => {
           flipBack={flipBack}
           flipTo={flipTo}
           pageCount={Math.ceil(words?.length / 20)}
-          currentPage={currentPage}
           previousLabel="Prev"
           nextLabel="Next"
         />

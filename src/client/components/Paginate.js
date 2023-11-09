@@ -1,23 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Paginate = ({
   flipForward,
   flipBack,
   flipTo,
   pageCount,
-  currentPage,
   previousLabel,
   nextLabel,
 }) => {
+  const [currentPage, setCurrentPage] = useState(0);
+
   const pageNumbers = [];
   for (let i = 1; i <= pageCount; i += 1) {
     pageNumbers.push(i);
   }
-
-  useEffect(() => {
-    if (currentPage > pageCount) flipBack(currentPage - 1);
-    // if (currentPage < pageCount) flipForward(currentPage + 1);
-  }, [currentPage, pageCount, flipBack, flipForward]);
 
   return (
     <div style={{ zIndex: '9000' }}>
@@ -27,7 +23,12 @@ const Paginate = ({
             currentPage === 0 ? 'disabled' : null
           }`}
         >
-          <a onClick={() => flipBack(currentPage - 1)}>
+          <a
+            onClick={() => {
+              setCurrentPage(() => currentPage - 1);
+              flipBack();
+            }}
+          >
             {previousLabel}
           </a>
         </li>
@@ -36,7 +37,14 @@ const Paginate = ({
             key={number}
             className={currentPage + 1 === number ? 'selected' : null}
           >
-            <a onClick={() => flipTo(number - 1)}>{number}</a>
+            <a
+              onClick={() => {
+                setCurrentPage(number - 1);
+                flipTo(number - 1);
+              }}
+            >
+              {number}
+            </a>
           </li>
         ))}
         <li
@@ -44,7 +52,12 @@ const Paginate = ({
             currentPage === pageCount - 1 ? 'disabled' : null
           }`}
         >
-          <a onClick={() => flipForward(currentPage + 1)}>
+          <a
+            onClick={() => {
+              setCurrentPage(() => currentPage + 1);
+              flipForward();
+            }}
+          >
             {nextLabel}
           </a>
         </li>
