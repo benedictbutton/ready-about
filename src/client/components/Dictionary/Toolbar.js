@@ -42,7 +42,6 @@ const DictionaryToolbar = ({
   onSelectAllClick,
   deleteWords,
   selected,
-  handleResetSelected,
   handleSelectSubmit,
 }) => {
   const alter =
@@ -97,7 +96,6 @@ const DictionaryToolbar = ({
               deleteWords({
                 variables: { _id: selected },
               });
-              handleResetSelected();
             }}
           >
             <DeleteIcon color="secondary" />

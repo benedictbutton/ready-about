@@ -101,9 +101,18 @@ const Dictionary = () => {
   const [addHistory] = useMutation(ADD_HISTORY, {
     refetchQueries: [{ query: GET_HISTORY }],
   });
-
   const [deleteWords] = useMutation(DELETE_WORDS, {
-    refetchQueries: [{ query: GET_HISTORY }],
+    update: cache => {
+      cache.updateQuery({ query: GET_HISTORY }, data => ({
+        user: {
+          ...data.user,
+          wordsHistory: data.user.wordsHistory.filter(
+            word => word._id !== selected[0],
+          ),
+        },
+      }));
+    },
+    onCompleted: () => handleResetSelected(),
   });
 
   const baseUrl = `https://www.dictionaryapi.com/api/v3/references/collegiate/json/`;
@@ -112,7 +121,6 @@ const Dictionary = () => {
 
   const searchWord = values => {
     setOpenHistory(false);
-    setCurrentPage(1);
     doFetch(getUrl(baseUrl, values?.word, key));
     handleResetValues();
   };
@@ -273,7 +281,6 @@ const Dictionary = () => {
           onSelectAllClick={handleSelectAllClick}
           deleteWords={deleteWords}
           selected={selected}
-          handleResetSelected={handleResetSelected}
           handleSelectSubmit={handleSelectSubmit}
         />
       }
